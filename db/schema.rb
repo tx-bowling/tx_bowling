@@ -10,10 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_26_030149) do
+ActiveRecord::Schema.define(version: 2020_03_26_033805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "street_1", default: "", null: false
+    t.string "street_2"
+    t.string "city", default: "", null: false
+    t.string "state", default: "", null: false
+    t.string "zip", default: "", null: false
+    t.text "notes"
+    t.string "latitude", default: "", null: false
+    t.string "longitude", default: "", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.integer "lane_count"
+    t.boolean "has_restaurant"
+    t.boolean "has_bar"
+    t.bigint "address_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["address_id"], name: "index_locations_on_address_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -39,4 +63,5 @@ ActiveRecord::Schema.define(version: 2020_03_26_030149) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "locations", "addresses"
 end

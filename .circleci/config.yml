@@ -16,7 +16,7 @@ executors:
           POSTGRES_PASSWORD: magic
           POSTGRES_DB: tx_bowling_test
 commands:
-  dependencies:
+  bundle_install:
     steps:
       - run:
           name: Force Bundler Version
@@ -35,6 +35,18 @@ commands:
           key: v1-tx_bowling-{{ arch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+  yarn_install:
+    steps:
+      - restore_cache:
+          keys:
+            - v1-tx_bowling-{{ arch }}-{{ checksum "yarn.lock" }}
+            # if cache for exact version of `yarn.lock` is not present then load any most recent one
+            - v1-tx_bowling-
+      - run: yarn install
+      - save_cache:
+          key: v1-tx_bowling-{{ arch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
   setup_database:
     steps:
       - run: bundle exec rake db:create db:schema:load --trace
@@ -44,7 +56,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - dependencies
+      - bundle_install
       - run:
           name: rubycritic
           command: bundle exec rake ci:rubycritic
@@ -56,7 +68,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - dependencies
+      - bundle_install
       - run: bundle exec brakeman
       - run: bundle exec bundler-audit
   test:
@@ -64,8 +76,12 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - dependencies
+      - bundle_install
+      - yarn_install
       - setup_database
+      - run:
+          name: Precompile Webpacker
+          command: NODE_ENV=test bundle exec rails webpacker:compile
       - run:
           name: RSpec
           command: bundle exec rspec --format progress --format RspecJunitFormatter --out test-results/rspec/results.xml

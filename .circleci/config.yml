@@ -47,9 +47,10 @@ jobs:
       - dependencies
       - run:
           name: rubycritic
-          command: bundle exec rubycritic -s 90 --no-browser --mode-ci master --maximum-decrease 0
+          command: bundle exec rubycritic -s 90 --no-browser --mode-ci --maximum-decrease 0 -f console
       - run: bundle exec rails_best_practices
       - run: bundle exec fasterer
+      - run: bundle exec rubocop
   security:
     executor: ruby
     resource_class: small

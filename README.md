@@ -122,3 +122,7 @@ $ rails webpacker:install:react
 $ rails generate react:install
 ```
 
+## Circle CI CLI
+```
+curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | bash
+```

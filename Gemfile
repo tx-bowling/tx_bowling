@@ -5,20 +5,19 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.5'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
-# Use postgresql as the database for Active Record
-gem 'pg', '>= 0.18', '< 2.0'
-# Use Puma as the app server
-gem 'puma', '~> 4.1'
-# Use SCSS for stylesheets
-gem 'sass-rails', '>= 6'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 4.0'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'bootsnap', '>= 1.4.2', require: false
+gem 'devise'
+gem 'dry-system-rails'
+gem 'geocoder'
 gem 'jbuilder', '~> 2.7'
+gem 'pg', '>= 0.18', '< 2.0'
+gem 'puma', '~> 4.1'
+gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
+gem 'react-rails'
+gem 'sass-rails', '>= 6'
+gem 'turbolinks', '~> 5'
+gem 'webpacker', '~> 4.0'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
@@ -26,12 +25,6 @@ gem 'jbuilder', '~> 2.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-gem 'devise'
-gem 'react-rails'
-# Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.2', require: false
-gem 'dry-system-rails'
-gem 'geocoder'
 
 group :development, :test do
   gem 'awesome_print'
@@ -45,23 +38,22 @@ group :development, :test do
 end
 
 group :development do
-  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'web-console', '>= 3.3.0'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'rubocop-rails', require: false
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'fasterer'
-  gem 'rubycritic'
-  gem 'rails_best_practices'
   gem 'brakeman'
   gem 'bundler-audit', git: 'https://github.com/rubysec/bundler-audit'
+  gem 'fasterer'
+  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'rails_best_practices'
+  gem 'rubocop-rails', require: false
+  gem 'rubycritic'
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'web-console', '>= 3.3.0'
 end
 
 group :test do
-  gem 'webmock'
   gem 'simplecov', require: false
+  gem 'webmock'
 end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

@@ -29,10 +29,10 @@ ActiveRecord::Schema.define(version: 2020_03_26_033805) do
   end
 
   create_table "locations", force: :cascade do |t|
-    t.string "name"
-    t.integer "lane_count"
-    t.boolean "has_restaurant"
-    t.boolean "has_bar"
+    t.string "name", default: "", null: false
+    t.integer "lane_count", default: 0, null: false
+    t.boolean "has_restaurant", default: false, null: false
+    t.boolean "has_bar", default: false, null: false
     t.bigint "address_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

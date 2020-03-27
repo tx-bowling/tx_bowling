@@ -1,6 +1,8 @@
 class Address < ApplicationRecord
   include TxBowling::Import[geocoder: 'geocoder']
 
+  has_one :location
+
   validates_presence_of :street_1, :city, :state, :zip
   validate :address_found?
 

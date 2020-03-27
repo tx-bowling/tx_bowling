@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'support/dry_system'
 
 RSpec.describe Address, type: :model do
   let(:subject) { FactoryBot.build(:address, :with_coordinates) }

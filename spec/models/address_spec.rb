@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Address, type: :model do
@@ -84,7 +86,7 @@ RSpec.describe Address, type: :model do
 
       before(:each) do
         allow(geocoder).to receive(:search).with(formatted_address).and_return(
-            [Geocoder::Result::Base.new({'lat': lat, 'lon': lon})]
+          [Geocoder::Result::Base.new({ 'lat': lat, 'lon': lon })]
         )
       end
 

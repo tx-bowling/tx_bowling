@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :address do
     street_1 { Faker::Address.street_address }
@@ -28,6 +30,5 @@ FactoryBot.define do
       state { 'WI' }
       zip { '54321' }
     end
-
   end
 end

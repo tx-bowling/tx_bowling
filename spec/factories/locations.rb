@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :location do
-    name { "#{Faker::House.furniture} #{%w(Lanes Alley Bowl Center).sample }" }
+    name { "#{Faker::House.furniture} #{%w[Lanes Alley Bowl Center].sample}" }
     lane_count { rand(12) * 2 }
     has_restaurant { true }
     has_bar { true }

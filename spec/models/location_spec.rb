@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Location, type: :model do
@@ -22,7 +24,7 @@ RSpec.describe Location, type: :model do
       subject.has_bar = nil
       expect(subject).not_to be_valid
 
-      expect(subject.errors.full_messages).to include "Has bar must be boolean"
+      expect(subject.errors.full_messages).to include 'Has bar must be boolean'
     end
 
     it 'must have a has_restaurant', type: :unit do
@@ -31,7 +33,7 @@ RSpec.describe Location, type: :model do
       subject.has_restaurant = nil
       expect(subject).not_to be_valid
 
-      expect(subject.errors.full_messages).to include "Has restaurant must be boolean"
+      expect(subject.errors.full_messages).to include 'Has restaurant must be boolean'
     end
     it 'must have an address', type: :unit do
       expect(subject).to be_valid
@@ -39,7 +41,7 @@ RSpec.describe Location, type: :model do
       subject.address = nil
       expect(subject).not_to be_valid
 
-      expect(subject.errors.full_messages).to include "Address must exist"
+      expect(subject.errors.full_messages).to include 'Address must exist'
     end
   end
 

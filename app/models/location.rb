@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Location model
 class Location < ApplicationRecord
   belongs_to :address
 

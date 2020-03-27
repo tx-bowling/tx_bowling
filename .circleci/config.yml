@@ -1,0 +1,78 @@
+version: 2.1
+orbs:
+  ruby: circleci/ruby@0.1.2
+executors:
+  ruby:
+    docker:
+      - image: circleci/ruby:2.6.5-stretch-node
+        environment:
+          RAILS_ENV: test
+          PSQL_DATABASE_HOST: 127.0.0.1
+          PSQL_DATABASE_USERNAME: psql_user
+          PSQL_DATABASE_PASSWORD: magic
+      - image: circleci/postgres:10
+        environment:
+          POSTGRES_USER: psql_user
+          POSTGRES_PASSWORD: magic
+          POSTGRES_DB: tx_bowling_test
+commands:
+  dependencies:
+    steps:
+      - run:
+          name: Force Bundler Version
+          command: |
+            sudo gem update --system
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
+      - restore_cache:
+          keys:
+            - v1-tx_bowling-{{ arch }}-{{ checksum "Gemfile.lock" }}
+            # if cache for exact version of `Gemfile.lock` is not present then load any most recent one
+            - v1-tx_bowling-
+      - run: bundle install --path vendor/bundle
+      - save_cache:
+          key: v1-tx_bowling-{{ arch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+  setup_database:
+    steps:
+      - run: bundle exec rake db:create db:schema:load --trace
+jobs:
+  static_analysis:
+    executor: ruby
+    resource_class: small
+    steps:
+      - checkout
+      - dependencies
+      - run:
+          name: rubycritic
+          command: bundle exec rubycritic -s 90 --no-browser --mode-ci master --maximum-decrease 0
+      - run: bundle exec rails_best_practices
+      - run: bundle exec fasterer
+  security:
+    executor: ruby
+    resource_class: small
+    steps:
+      - checkout
+      - dependencies
+      - run: bundle exec brakeman
+      - run: bundle exec bundler-audit
+  test:
+    executor: ruby
+    resource_class: small
+    steps:
+      - checkout
+      - dependencies
+      - setup_database
+      - run:
+          name: RSpec
+          command: bundle exec rspec --format progress --format RspecJunitFormatter --out rspec.xml
+      - store_test_results:
+          path: rspec.xml
+workflows:
+  default:
+    jobs:
+      - static_analysis
+      - security
+      - test

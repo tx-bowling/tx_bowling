@@ -19,9 +19,10 @@ class Address < ApplicationRecord
 
     return self if results.empty?
 
-    location = results[0]
-    self.latitude = location.data['lat']
-    self.longitude = location.data['lon']
+    # Symbolizing and to_s for consistency across Geocoder::Result types
+    location = results[0].data.symbolize_keys
+    self.latitude = location[:lat]
+    self.longitude = location[:lon]
     self
   end
 

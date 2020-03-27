@@ -73,22 +73,33 @@ RSpec.describe Address, type: :model do
 
   describe '#generate_geolocation', type: :unit do
     let(:subject) { address.send(:generate_geolocation) }
-
-    before(:all) do
-      require 'support/webmock/address'
+    let(:formatted_address) do
+      "#{address.street_1}, #{address.city}, #{address.state} #{address.zip}"
     end
 
     context 'with a valid address', type: :unit do
       let(:address) { FactoryBot.build(:address, :valid_for_webmock) }
+      let(:lat) { Faker::Address.latitude.to_s }
+      let(:lon) { Faker::Address.longitude.to_s }
+
+      before(:each) do
+        allow(geocoder).to receive(:search).with(formatted_address).and_return(
+            [Geocoder::Result::Base.new({'lat': lat, 'lon': lon})]
+        )
+      end
 
       it 'sets latitude and longitude' do
-        expect(subject.latitude).to eq '30.32911445'
-        expect(subject.longitude).to eq '-97.73173634693961'
+        expect(subject.latitude).to eq lat
+        expect(subject.longitude).to eq lon
       end
     end
 
     context 'with an invalid address', type: :unit do
       let(:address) { FactoryBot.build(:address, :invalid_for_webmock) }
+
+      before(:each) do
+        allow(geocoder).to receive(:search).with(formatted_address).and_return([])
+      end
 
       it 'sets latitude and longitude to nil' do
         expect(subject.latitude).to eq nil

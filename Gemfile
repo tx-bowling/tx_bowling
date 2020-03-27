@@ -55,6 +55,7 @@ group :development do
   gem 'rubycritic'
   gem 'rails_best_practices'
   gem 'brakeman'
+  gem 'bundler-audit', git: 'https://github.com/rubysec/bundler-audit'
 end
 
 group :test do

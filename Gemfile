@@ -51,10 +51,15 @@ group :development do
   gem 'rubocop-rails', require: false
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'fasterer'
+  gem 'rubycritic'
+  gem 'rails_best_practices'
+  gem 'brakeman'
 end
 
 group :test do
   gem 'webmock'
+  gem 'simplecov', require: false
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

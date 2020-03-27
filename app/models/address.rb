@@ -14,6 +14,8 @@ class Address < ApplicationRecord
   private
 
   def generate_geolocation
+    return self if persisted?
+
     self.latitude = nil
     self.longitude = nil
 

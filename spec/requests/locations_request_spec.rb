@@ -41,6 +41,14 @@ RSpec.describe '/locations', type: :request do
     end
   end
 
+  describe 'GET /edit' do
+    it 'render a successful response' do
+      location = Location.create! valid_attributes
+      get edit_location_url(location)
+      expect(response).to be_successful
+    end
+  end
+
   describe 'POST /create' do
     context 'with valid parameters' do
       it 'creates a new Location' do
@@ -62,7 +70,7 @@ RSpec.describe '/locations', type: :request do
         end.to change(Location, :count).by(0)
       end
 
-      it "renders a successful response (i.e. to display the 'new' template)" do
+      it "renders an unsuccessful response (i.e. to display the 'new' template)" do
         post locations_url, params: { location: invalid_attributes }
         expect(response).to be_successful
       end

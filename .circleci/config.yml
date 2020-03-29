@@ -77,11 +77,7 @@ jobs:
     steps:
       - checkout
       - bundle_install
-      - yarn_install
       - setup_database
-      - run:
-          name: Precompile Webpacker
-          command: NODE_ENV=test bundle exec rails webpacker:compile
       - run:
           name: RSpec
           command: bundle exec rspec --format progress --format RspecJunitFormatter --out test-results/rspec/results.xml

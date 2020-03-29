@@ -58,21 +58,6 @@ RSpec.describe Address, type: :model do
     expect(subject.errors.full_messages).to include "Zip can't be blank"
   end
 
-  it 'requires a found address', type: :unit do
-    expect(subject).to be_valid
-
-    subject.latitude = nil
-    expect(subject).not_to be_valid
-
-    subject.longitude = nil
-    expect(subject).not_to be_valid
-
-    subject.latitude = '12.123'
-    expect(subject).not_to be_valid
-
-    expect(subject.errors.full_messages).to include "Address can't be found"
-  end
-
   describe '#generate_geolocation', type: :unit do
     let(:subject) { address.send(:generate_geolocation) }
     let(:formatted_address) do
@@ -103,9 +88,8 @@ RSpec.describe Address, type: :model do
         allow(geocoder).to receive(:search).with(formatted_address).and_return([])
       end
 
-      it 'sets latitude and longitude to nil' do
-        expect(subject.latitude).to eq nil
-        expect(subject.longitude).to eq nil
+      it 'raises an error' do
+        expect { subject }.to raise_error ActiveRecord::RecordInvalid
       end
     end
 

@@ -13,8 +13,6 @@ gem 'jbuilder', '~> 2.7'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
-gem 'turbolinks', '~> 5'
-gem 'webpacker', '~> 4.0'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -39,6 +37,7 @@ group :development do
   gem 'brakeman'
   gem 'bundler-audit', git: 'https://github.com/rubysec/bundler-audit'
   gem 'fasterer'
+  gem 'foreman'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rails_best_practices'
   gem 'rubocop-rails', require: false

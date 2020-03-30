@@ -1,4 +1,38 @@
 # TX Bowling
+## Project Structure
+### Rails
+Found at `.`
+* dry-system: dependency injection
+
+### Next
+Found at `./ui`
+
+TODO
+
+## Running
+
+### Setup
+```
+cp .env-example .env
+```
+
+Set environment variables
+
+```
+bundle install
+
+rails db:create
+rails db:migrate
+
+cd ui
+yarn install
+
+cd ..
+
+foreman start
+```
+
+
 ## Local Environment Setup
 ### RVM
 #### [Ubuntu](https://github.com/rvm/ubuntu_rvm)

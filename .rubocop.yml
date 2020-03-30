@@ -9,6 +9,7 @@ AllCops:
     - node_modules/**/*
     - db/migrate/**/*
     - db/schema.rb
+    - ui/**/*
 
 Layout/EndAlignment:
   Enabled: false

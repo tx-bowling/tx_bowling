@@ -38,3 +38,6 @@ log/
 
 coverage/
 rubycritic/
+
+ui/node_modules/
+ui/.next/

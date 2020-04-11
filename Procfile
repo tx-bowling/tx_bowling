@@ -1,3 +1,3 @@
 server: rails s
-ui: yarn --cwd ./ui dev
+ui: yarn --cwd ./ui start
 

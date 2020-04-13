@@ -23,11 +23,13 @@ gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
-group :development, :test do
+group :development, :test, :pact do
   gem 'awesome_print'
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'faraday_middleware'
+  gem 'pact'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails'

@@ -1,43 +1,47 @@
 import * as Matchers from "@pact-foundation/pact/dsl/matchers";
 
-import LocationsService from "./locations";
+import AddressesService from "./addresses";
 
-describe("LocationService", () => {
+describe("AddressesService", () => {
 
 
   const EXPECTED_BODY = {
-    locations: [
+    addresses: [
       {
         id: 1,
-        name: "Bedside Table Bowl",
-        lane_count: 24,
-        has_restaurant: true,
-        has_bar: true,
-        address_id: 2,
+        street_address: '1234 Bowling Ave',
+        secondary_address: 'Suite 3',
+        city: 'Austin',
+        state: 'TX',
+        zip: '78745',
+        latitude: '30.3291',
+        longitude: '-97.7317',
         created_at: "2020-04-13T03:21:34.548Z",
         updated_at: "2020-04-13T03:21:34.548Z"
       },
       {
         id: 1,
-        name: "Bedside Table Bowl",
-        lane_count: 24,
-        has_restaurant: true,
-        has_bar: true,
-        address_id: 2,
+        street_address: '1234 Bowling Ave',
+        secondary_address: 'Suite 3',
+        city: 'Austin',
+        state: 'TX',
+        zip: '78745',
+        latitude: '30.3291',
+        longitude: '-97.7317',
         created_at: "2020-04-13T03:21:34.548Z",
         updated_at: "2020-04-13T03:21:34.548Z"
       },
     ]
   };
 
-  describe("getLocations", () => {
+  describe("getAddresses", () => {
     beforeEach( () => {
       const interaction = {
-        state: "there are multiple locations",
-        uponReceiving: "a request for retrieving locations",
+        state: "there are multiple addresses",
+        uponReceiving: "a request for retrieving addresses",
         withRequest: {
           method: "GET",
-          path: "/api/v1/locations.json",
+          path: "/api/v1/addresses.json",
           query: {},
           headers: {
             Accept: "application/json",
@@ -49,14 +53,16 @@ describe("LocationService", () => {
             "Content-Type": "application/json; charset=utf-8",
           },
           body: {
-            locations:
+            addresses:
               Matchers.eachLike({
                 id: Matchers.integer(1),
-                name: Matchers.like("Bedside Table Bowl"),
-                lane_count: Matchers.like(24),
-                has_restaurant: Matchers.boolean(true),
-                has_bar: Matchers.boolean(true),
-                address_id: Matchers.integer(2),
+                street_address: Matchers.string('1234 Bowling Ave'),
+                secondary_address: Matchers.string('Suite 3'),
+                city: Matchers.string('Austin'),
+                state: Matchers.string('TX'),
+                zip: Matchers.string('78745'),
+                latitude: Matchers.string('30.3291'),
+                longitude: Matchers.string('-97.7317'),
                 created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
                 updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
               }, {min: 2}),
@@ -68,22 +74,22 @@ describe("LocationService", () => {
     });
 
     it("returns a successful body", async () => {
-      const response = await new LocationsService().getLocations();
+      const response = await new AddressesService().getAddresses();
 
       expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
       expect(response.data).toEqual(EXPECTED_BODY);
       expect(response.status).toEqual(200);
     })
-  })
+  });
 
-  describe("getLocation", () => {
+  describe("getAddress", () => {
     beforeEach( () => {
       const interaction = {
-        state: "there is a location with an id of 1",
-        uponReceiving: "a request for retrieving a single location",
+        state: "there is a address with an id of 1",
+        uponReceiving: "a request for retrieving a single address",
         withRequest: {
           method: "GET",
-          path: "/api/v1/locations/1.json",
+          path: "/api/v1/addresses/1.json",
           query: {},
           headers: {
             Accept: "application/json",
@@ -95,13 +101,15 @@ describe("LocationService", () => {
             "Content-Type": "application/json; charset=utf-8",
           },
           body: {
-            location: {
+            address: {
               id: Matchers.integer(1),
-              name: Matchers.like("Bedside Table Bowl"),
-              lane_count: Matchers.like(24),
-              has_restaurant: Matchers.boolean(true),
-              has_bar: Matchers.boolean(true),
-              address_id: Matchers.integer(2),
+              street_address: Matchers.string('1234 Bowling Ave'),
+              secondary_address: Matchers.string('Suite 3'),
+              city: Matchers.string('Austin'),
+              state: Matchers.string('TX'),
+              zip: Matchers.string('78745'),
+              latitude: Matchers.string('30.3291'),
+              longitude: Matchers.string('-97.7317'),
               created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
               updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
             },
@@ -113,12 +121,11 @@ describe("LocationService", () => {
     });
 
     it("returns a successful body", async () => {
-      const response = await new LocationsService().getLocation(1);
+      const response = await new AddressesService().getAddress(1);
 
       expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
-      expect(response.data).toEqual({ location: EXPECTED_BODY.locations[0] });
+      expect(response.data).toEqual({ address: EXPECTED_BODY.addresses[0] });
       expect(response.status).toEqual(200);
     })
-  })
-
+  });
 });

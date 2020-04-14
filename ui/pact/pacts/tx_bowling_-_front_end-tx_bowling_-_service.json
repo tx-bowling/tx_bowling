@@ -81,6 +81,398 @@
           }
         }
       }
+    },
+    {
+      "description": "a request for retrieving a single location",
+      "providerState": "there is a location with an id of 1",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/locations/1.json",
+        "query": "",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "location": {
+            "id": 1,
+            "name": "Bedside Table Bowl",
+            "lane_count": 24,
+            "has_restaurant": true,
+            "has_bar": true,
+            "address_id": 2,
+            "created_at": "2020-04-13T03:21:34.548Z",
+            "updated_at": "2020-04-13T03:21:34.548Z"
+          }
+        },
+        "matchingRules": {
+          "$.body.location.id": {
+            "match": "type"
+          },
+          "$.body.location.name": {
+            "match": "type"
+          },
+          "$.body.location.lane_count": {
+            "match": "type"
+          },
+          "$.body.location.has_restaurant": {
+            "match": "type"
+          },
+          "$.body.location.has_bar": {
+            "match": "type"
+          },
+          "$.body.location.address_id": {
+            "match": "type"
+          },
+          "$.body.location.created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d:[0-5]\\d|Z)$"
+          },
+          "$.body.location.updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d:[0-5]\\d|Z)$"
+          }
+        }
+      }
+    },
+    {
+      "description": "a request for retrieving tournaments",
+      "providerState": "there are multiple tournaments",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/tournaments.json",
+        "query": "",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "tournaments": [
+            {
+              "id": 1,
+              "name": "Trusty Tournament",
+              "location_id": 1,
+              "schedule_id": 1,
+              "entry_cost": 5050,
+              "side_pots_available": [
+                "brackets",
+                "brackets"
+              ],
+              "link_to_source": "http://www.bowl.com",
+              "flier": "http://www.fillmurray.com/850/1100",
+              "contact_id": 1,
+              "created_at": "2020-04-13T03:21:34.548Z",
+              "updated_at": "2020-04-13T03:21:34.548Z"
+            },
+            {
+              "id": 1,
+              "name": "Trusty Tournament",
+              "location_id": 1,
+              "schedule_id": 1,
+              "entry_cost": 5050,
+              "side_pots_available": [
+                "brackets",
+                "brackets"
+              ],
+              "link_to_source": "http://www.bowl.com",
+              "flier": "http://www.fillmurray.com/850/1100",
+              "contact_id": 1,
+              "created_at": "2020-04-13T03:21:34.548Z",
+              "updated_at": "2020-04-13T03:21:34.548Z"
+            }
+          ]
+        },
+        "matchingRules": {
+          "$.body.tournaments": {
+            "min": 2
+          },
+          "$.body.tournaments[*].*": {
+            "match": "type"
+          },
+          "$.body.tournaments[*].id": {
+            "match": "type"
+          },
+          "$.body.tournaments[*].name": {
+            "match": "type"
+          },
+          "$.body.tournaments[*].location_id": {
+            "match": "type"
+          },
+          "$.body.tournaments[*].schedule_id": {
+            "match": "type"
+          },
+          "$.body.tournaments[*].entry_cost": {
+            "match": "type"
+          },
+          "$.body.tournaments[*].side_pots_available": {
+            "min": 2
+          },
+          "$.body.tournaments[*].side_pots_available[*].*": {
+            "match": "type"
+          },
+          "$.body.tournaments[*].side_pots_available[*]": {
+            "match": "type"
+          },
+          "$.body.tournaments[*].link_to_source": {
+            "match": "type"
+          },
+          "$.body.tournaments[*].flier": {
+            "match": "type"
+          },
+          "$.body.tournaments[*].contact_id": {
+            "match": "type"
+          },
+          "$.body.tournaments[*].created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d:[0-5]\\d|Z)$"
+          },
+          "$.body.tournaments[*].updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d:[0-5]\\d|Z)$"
+          }
+        }
+      }
+    },
+    {
+      "description": "a request for retrieving a single tournament",
+      "providerState": "there is a tournament with an id of 1",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/tournaments/1.json",
+        "query": "",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "tournament": {
+            "id": 1,
+            "name": "Trusty Tournament",
+            "location_id": 1,
+            "schedule_id": 1,
+            "entry_cost": 5050,
+            "side_pots_available": [
+              "brackets",
+              "brackets"
+            ],
+            "link_to_source": "http://www.bowl.com",
+            "flier": "http://www.fillmurray.com/850/1100",
+            "contact_id": 1,
+            "created_at": "2020-04-13T03:21:34.548Z",
+            "updated_at": "2020-04-13T03:21:34.548Z"
+          }
+        },
+        "matchingRules": {
+          "$.body.tournament.id": {
+            "match": "type"
+          },
+          "$.body.tournament.name": {
+            "match": "type"
+          },
+          "$.body.tournament.location_id": {
+            "match": "type"
+          },
+          "$.body.tournament.schedule_id": {
+            "match": "type"
+          },
+          "$.body.tournament.entry_cost": {
+            "match": "type"
+          },
+          "$.body.tournament.side_pots_available": {
+            "min": 2
+          },
+          "$.body.tournament.side_pots_available[*].*": {
+            "match": "type"
+          },
+          "$.body.tournament.side_pots_available[*]": {
+            "match": "type"
+          },
+          "$.body.tournament.link_to_source": {
+            "match": "type"
+          },
+          "$.body.tournament.flier": {
+            "match": "type"
+          },
+          "$.body.tournament.contact_id": {
+            "match": "type"
+          },
+          "$.body.tournament.created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d:[0-5]\\d|Z)$"
+          },
+          "$.body.tournament.updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d:[0-5]\\d|Z)$"
+          }
+        }
+      }
+    },
+    {
+      "description": "a request for retrieving addresses",
+      "providerState": "there are multiple addresses",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/addresses.json",
+        "query": "",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "addresses": [
+            {
+              "id": 1,
+              "street_address": "1234 Bowling Ave",
+              "secondary_address": "Suite 3",
+              "city": "Austin",
+              "state": "TX",
+              "zip": "78745",
+              "latitude": "30.3291",
+              "longitude": "-97.7317",
+              "created_at": "2020-04-13T03:21:34.548Z",
+              "updated_at": "2020-04-13T03:21:34.548Z"
+            },
+            {
+              "id": 1,
+              "street_address": "1234 Bowling Ave",
+              "secondary_address": "Suite 3",
+              "city": "Austin",
+              "state": "TX",
+              "zip": "78745",
+              "latitude": "30.3291",
+              "longitude": "-97.7317",
+              "created_at": "2020-04-13T03:21:34.548Z",
+              "updated_at": "2020-04-13T03:21:34.548Z"
+            }
+          ]
+        },
+        "matchingRules": {
+          "$.body.addresses": {
+            "min": 2
+          },
+          "$.body.addresses[*].*": {
+            "match": "type"
+          },
+          "$.body.addresses[*].id": {
+            "match": "type"
+          },
+          "$.body.addresses[*].street_address": {
+            "match": "type"
+          },
+          "$.body.addresses[*].secondary_address": {
+            "match": "type"
+          },
+          "$.body.addresses[*].city": {
+            "match": "type"
+          },
+          "$.body.addresses[*].state": {
+            "match": "type"
+          },
+          "$.body.addresses[*].zip": {
+            "match": "type"
+          },
+          "$.body.addresses[*].latitude": {
+            "match": "type"
+          },
+          "$.body.addresses[*].longitude": {
+            "match": "type"
+          },
+          "$.body.addresses[*].created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d:[0-5]\\d|Z)$"
+          },
+          "$.body.addresses[*].updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d:[0-5]\\d|Z)$"
+          }
+        }
+      }
+    },
+    {
+      "description": "a request for retrieving a single address",
+      "providerState": "there is a address with an id of 1",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/addresses/1.json",
+        "query": "",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "address": {
+            "id": 1,
+            "street_address": "1234 Bowling Ave",
+            "secondary_address": "Suite 3",
+            "city": "Austin",
+            "state": "TX",
+            "zip": "78745",
+            "latitude": "30.3291",
+            "longitude": "-97.7317",
+            "created_at": "2020-04-13T03:21:34.548Z",
+            "updated_at": "2020-04-13T03:21:34.548Z"
+          }
+        },
+        "matchingRules": {
+          "$.body.address.id": {
+            "match": "type"
+          },
+          "$.body.address.street_address": {
+            "match": "type"
+          },
+          "$.body.address.secondary_address": {
+            "match": "type"
+          },
+          "$.body.address.city": {
+            "match": "type"
+          },
+          "$.body.address.state": {
+            "match": "type"
+          },
+          "$.body.address.zip": {
+            "match": "type"
+          },
+          "$.body.address.latitude": {
+            "match": "type"
+          },
+          "$.body.address.longitude": {
+            "match": "type"
+          },
+          "$.body.address.created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d:[0-5]\\d|Z)$"
+          },
+          "$.body.address.updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d:[0-5]\\d|Z)$"
+          }
+        }
+      }
     }
   ],
   "metadata": {

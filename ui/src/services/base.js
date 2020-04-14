@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-export class BaseService {
+class BaseService {
   http;
 
   constructor() {
     this.http = axios.create({
-      baseURL: `${'http://localhost:3001'}/api/v1`,
+      baseURL: BaseService.API_URL,
     });
   };
 
@@ -34,5 +34,7 @@ export class BaseService {
     return config;
   };
 }
+
+BaseService.API_URL = `${'http://localhost:3001'}/api/v1`;
 
 export default BaseService;

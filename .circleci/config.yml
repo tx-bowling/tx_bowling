@@ -1,6 +1,10 @@
 version: 2.1
 orbs:
   ruby: circleci/ruby@0.1.2
+
+#############
+# Executors #
+#############
 executors:
   ruby:
     docker:
@@ -15,6 +19,10 @@ executors:
           POSTGRES_USER: psql_user
           POSTGRES_PASSWORD: magic
           POSTGRES_DB: tx_bowling_test
+
+############
+# Commands #
+############
 commands:
   bundle_install:
     steps:
@@ -39,17 +47,29 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - v1-tx_bowling-{{ arch }}-{{ checksum "yarn.lock" }}
+            - v3-tx_bowling-{{ arch }}-{{ checksum "./ui/yarn.lock" }}
             # if cache for exact version of `yarn.lock` is not present then load any most recent one
-            - v1-tx_bowling-
-      - run: yarn install
+            - v3-tx_bowling-
+      - run: cd ui && yarn install
       - save_cache:
-          key: v1-tx_bowling-{{ arch }}-{{ checksum "yarn.lock" }}
+          key: v2-tx_bowling-{{ arch }}-{{ checksum "./ui/yarn.lock" }}
           paths:
-            - node_modules
+            - ./ui/node_modules
   setup_database:
     steps:
       - run: bundle exec rake db:create db:schema:load --trace
+  create_pacts:
+    steps:
+      - run: unset BUNDLE_APP_CONFIG && cd ui && yarn pact:test
+      - store_artifacts:
+          path: ./ui/pact/pacts
+  verify_pacts:
+    steps:
+      - run: bundle exec rake pact:verify
+
+########
+# Jobs #
+########
 jobs:
   static_analysis:
     executor: ruby
@@ -71,6 +91,30 @@ jobs:
       - bundle_install
       - run: bundle exec brakeman
       - run: bundle exec bundler-audit
+  create_contract:
+    executor: ruby
+    resource_class: small
+    steps:
+      - checkout
+      - yarn_install
+      - create_pacts
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+          # taken to be the root directory of the workspace.
+          root: ui/pact/pacts
+          # Must be relative path from root
+          paths:
+            - tx_bowling_-_front_end-tx_bowling_-_service.json
+  verify_contract:
+    executor: ruby
+    resource_class: small
+    steps:
+      - checkout
+      - bundle_install
+      - setup_database
+      - attach_workspace:
+          at: ui/pact/pacts
+      - verify_pacts
   test:
     executor: ruby
     resource_class: small
@@ -83,9 +127,17 @@ jobs:
           command: bundle exec rspec --format progress --format RspecJunitFormatter --out test-results/rspec/results.xml
       - store_test_results:
           path: test-results
+
+#############
+# Workflows #
+#############
 workflows:
   default:
     jobs:
       - static_analysis
       - security
       - test
+      - create_contract
+      - verify_contract:
+          requires:
+            - create_contract

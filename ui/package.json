@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -22,7 +23,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "pact:test": "jest --testPathPattern .*\\.pact\\.spec\\.js --runInBand --setupFiles ./pact/pactSetup.js --setupTestFrameworkScriptFile=./pact/pactTestWrapper.js ",
+    "pact:publish": "node ./pact/publish.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,8 +44,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
-    "babel-loader": "^8.1.0"
+    "@pact-foundation/pact": "^9.2.1",
+    "babel-loader": "^8.1.0",
+    "jest-pact": "^0.5.2"
   }
 }

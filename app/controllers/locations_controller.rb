@@ -7,6 +7,7 @@ class LocationsController < ApplicationController
   # GET /locations.json
   def index
     @locations = Location.all
+    render json: { locations: @locations }
   end
 
   # GET /locations/1.json

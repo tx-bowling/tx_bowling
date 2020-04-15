@@ -2,6 +2,7 @@
 
 # Location model
 class Location < ApplicationRecord
+  has_many :tournaments
   belongs_to :address
   accepts_nested_attributes_for :address
 

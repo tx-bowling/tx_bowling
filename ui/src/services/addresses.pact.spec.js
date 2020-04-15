@@ -13,9 +13,10 @@ describe("AddressesService", () => {
         secondary_address: 'Suite 3',
         city: 'Austin',
         state: 'TX',
-        zip: '78745',
+        zip_code: '78745',
         latitude: '30.3291',
         longitude: '-97.7317',
+        notes: 'Near the school',
         created_at: "2020-04-13T03:21:34.548Z",
         updated_at: "2020-04-13T03:21:34.548Z"
       },
@@ -25,9 +26,10 @@ describe("AddressesService", () => {
         secondary_address: 'Suite 3',
         city: 'Austin',
         state: 'TX',
-        zip: '78745',
+        zip_code: '78745',
         latitude: '30.3291',
         longitude: '-97.7317',
+        notes: 'Near the school',
         created_at: "2020-04-13T03:21:34.548Z",
         updated_at: "2020-04-13T03:21:34.548Z"
       },
@@ -60,9 +62,10 @@ describe("AddressesService", () => {
                 secondary_address: Matchers.string('Suite 3'),
                 city: Matchers.string('Austin'),
                 state: Matchers.string('TX'),
-                zip: Matchers.string('78745'),
+                zip_code: Matchers.string('78745'),
                 latitude: Matchers.string('30.3291'),
                 longitude: Matchers.string('-97.7317'),
+                notes: Matchers.string('Near the school'),
                 created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
                 updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
               }, {min: 2}),
@@ -85,7 +88,7 @@ describe("AddressesService", () => {
   describe("getAddress", () => {
     beforeEach( () => {
       const interaction = {
-        state: "there is a address with an id of 1",
+        state: "there is an address with an id of 1",
         uponReceiving: "a request for retrieving a single address",
         withRequest: {
           method: "GET",
@@ -107,9 +110,10 @@ describe("AddressesService", () => {
               secondary_address: Matchers.string('Suite 3'),
               city: Matchers.string('Austin'),
               state: Matchers.string('TX'),
-              zip: Matchers.string('78745'),
+              zip_code: Matchers.string('78745'),
               latitude: Matchers.string('30.3291'),
               longitude: Matchers.string('-97.7317'),
+              notes: Matchers.string('Near the school'),
               created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
               updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
             },

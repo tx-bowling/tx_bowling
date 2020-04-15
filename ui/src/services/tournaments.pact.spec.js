@@ -9,7 +9,7 @@ describe("TournamentsService", () => {
         id: 1,
         name: "Trusty Tournament",
         location_id: 1,
-        schedule_id: 1,
+        schedule_ids: [1],
         entry_cost: 5050,
         side_pots_available: ['brackets', 'brackets'],
         link_to_source: 'http://www.bowl.com',
@@ -22,7 +22,7 @@ describe("TournamentsService", () => {
         id: 1,
         name: "Trusty Tournament",
         location_id: 1,
-        schedule_id: 1,
+        schedule_ids: [1],
         entry_cost: 5050,
         side_pots_available: ['brackets', 'brackets'],
         link_to_source: 'http://www.bowl.com',
@@ -58,7 +58,7 @@ describe("TournamentsService", () => {
                 id: Matchers.integer(1),
                 name: Matchers.like("Trusty Tournament"),
                 location_id: Matchers.integer(1),
-                schedule_id: Matchers.integer(1),
+                schedule_ids: Matchers.eachLike(Matchers.integer(1), {min: 1}),
                 entry_cost: Matchers.integer(5050),
                 side_pots_available: Matchers.eachLike(
                   Matchers.string('brackets')
@@ -108,7 +108,7 @@ describe("TournamentsService", () => {
               id: Matchers.integer(1),
               name: Matchers.like("Trusty Tournament"),
               location_id: Matchers.integer(1),
-              schedule_id: Matchers.integer(1),
+              schedule_ids: Matchers.eachLike(Matchers.integer(1), {min: 1}),
               entry_cost: Matchers.integer(5050),
               side_pots_available: Matchers.eachLike(
                 Matchers.string('brackets')

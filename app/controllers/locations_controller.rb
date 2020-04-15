@@ -6,12 +6,13 @@ class LocationsController < ApplicationController
 
   # GET /locations.json
   def index
-    @locations = Location.all
-    render json: { locations: @locations }
+    render json: Location.all
   end
 
   # GET /locations/1.json
-  def show; end
+  def show
+    render json: @location
+  end
 
   # POST /locations.json
   def create

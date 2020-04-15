@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_26_033805) do
+ActiveRecord::Schema.define(version: 2020_04_15_012920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
-    t.string "street_1", default: "", null: false
-    t.string "street_2"
+    t.string "street_address", default: "", null: false
+    t.string "secondary_address"
     t.string "city", default: "", null: false
     t.string "state", default: "", null: false
-    t.string "zip", default: "", null: false
+    t.string "zip_code", default: "", null: false
     t.text "notes"
     t.string "latitude", default: "", null: false
     t.string "longitude", default: "", null: false
@@ -37,6 +37,30 @@ ActiveRecord::Schema.define(version: 2020_03_26_033805) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["address_id"], name: "index_locations_on_address_id"
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.date "date"
+    t.time "time"
+    t.string "event"
+    t.bigint "tournament_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tournament_id"], name: "index_schedules_on_tournament_id"
+  end
+
+  create_table "tournaments", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.bigint "location_id", null: false
+    t.integer "entry_cost", default: 0, null: false
+    t.string "side_pots_available"
+    t.string "link_to_source"
+    t.string "flier"
+    t.bigint "contact_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["contact_id"], name: "index_tournaments_on_contact_id"
+    t.index ["location_id"], name: "index_tournaments_on_location_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -64,4 +88,7 @@ ActiveRecord::Schema.define(version: 2020_03_26_033805) do
   end
 
   add_foreign_key "locations", "addresses"
+  add_foreign_key "schedules", "tournaments"
+  add_foreign_key "tournaments", "locations"
+  add_foreign_key "tournaments", "users", column: "contact_id"
 end

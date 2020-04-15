@@ -9,4 +9,5 @@ class User < ApplicationRecord
          :confirmable, :lockable
 
   validates_presence_of :email, :encrypted_password, :first_name, :last_name
+  has_many :tournaments, foreign_key: :contact_id
 end

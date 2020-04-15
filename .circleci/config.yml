@@ -80,7 +80,7 @@ jobs:
       - run:
           name: rubycritic
           command: bundle exec rake ci:rubycritic
-      - run: bundle exec rails_best_practices
+      - run: bundle exec rails_best_practices -o .*^[node_modules].*\.rb -c ./rails_best_practices.yml
       - run: bundle exec fasterer
       - run: bundle exec rubocop
   security:

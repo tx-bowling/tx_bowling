@@ -2,14 +2,14 @@
 
 FactoryBot.define do
   factory :address do
-    street_1 { Faker::Address.street_address }
+    street_address { Faker::Address.street_address }
     city { Faker::Address.city }
     state { Faker::Address.state_abbr }
-    zip { Faker::Address.zip }
+    zip_code { Faker::Address.zip }
     notes { Faker::Superhero.descriptor }
 
-    trait :with_street_2 do
-      street_2 { Faker::Address.secondary_address }
+    trait :with_secondary_address do
+      secondary_address { Faker::Address.secondary_address }
     end
 
     trait :with_coordinates do
@@ -18,17 +18,17 @@ FactoryBot.define do
     end
 
     trait :valid_for_webmock do
-      street_1 { '5700 Grover Ave' }
+      street_address { '5700 Grover Ave' }
       city { 'Austin' }
       state { 'TX' }
-      zip { '78756' }
+      zip_code { '78756' }
     end
 
     trait :invalid_for_webmock do
-      street_1 { '123 Wrong Way' }
+      street_address { '123 Wrong Way' }
       city { 'Invalid' }
       state { 'WI' }
-      zip { '54321' }
+      zip_code { '54321' }
     end
   end
 end

@@ -8,7 +8,7 @@ global.provider = new Pact({
   dir: path.resolve(process.cwd(), 'pact', 'pacts'),
   logLevel: 'trace',
   spec: 2,
-  pactfileWriteMode: "overwrite",
+  pactfileWriteMode: "update",
   consumer: "TX Bowling - Front End",
   provider: "TX Bowling - Service",
   host: 'localhost'

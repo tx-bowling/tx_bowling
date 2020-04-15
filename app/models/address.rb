@@ -4,19 +4,28 @@
 class Address < ApplicationRecord
   has_one :location
 
-  validates_presence_of :street_1, :city, :state, :zip
+  validates_presence_of :street_address, :city, :state, :zip_code
 
   before_save :generate_geolocation
 
   private
 
   def generate_geolocation
+    # TODO: Figure out
+    if Rails.env.test? || Rails.env.development?
+      return self if latitude.presence
+
+      self.latitude = Faker::Address.latitude
+      self.longitude = Faker::Address.longitude
+      return self
+    end
+
     return self if persisted?
 
     self.latitude = nil
     self.longitude = nil
 
-    address = "#{street_1}, #{city}, #{state} #{zip}"
+    address = "#{street_address}, #{city}, #{state} #{zip_code}"
     results = geocoder.search(address)
 
     if results.empty?

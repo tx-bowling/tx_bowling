@@ -10,6 +10,10 @@ class LocationsService {
   getLocations = () => {
     return this.http.get(`/locations.json`, {});
   };
+
+  getLocation = (id) => {
+    return this.http.get(`/locations/${id}.json`, {})
+  }
 }
 
 export default LocationsService;

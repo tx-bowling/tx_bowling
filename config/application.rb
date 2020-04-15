@@ -37,6 +37,7 @@ module TxBowling
     config.generators.system_tests = nil
 
     config.api_only = true
+    config.autoload_paths << Rails.root.join('app', 'serializers')
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do

@@ -2,15 +2,17 @@
 
 # Communication layer for Addresses
 class AddressesController < ApplicationController
-  before_action :set_location, only: %i[show]
+  before_action :set_address, only: %i[show]
 
   # GET /api/v1/addresses.json
   def index
-    @addresses = Address.all
+    render json: Address.all
   end
 
   # GET /api/v1/addresses/:id.json
-  def show; end
+  def show
+    render json: @address
+  end
 
   # POST /api/v1/addresses.json
   def create
@@ -24,6 +26,11 @@ class AddressesController < ApplicationController
   end
 
   private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_address
+    @address = Address.find(params[:id])
+  end
 
   def address_params
     params.require(:address).permit(:street_1, :street_2, :city, :state, :zip, :notes)

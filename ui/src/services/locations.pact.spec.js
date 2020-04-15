@@ -6,28 +6,14 @@ describe("LocationService", () => {
 
 
   const EXPECTED_BODY = {
-    locations: [
-      {
-        id: 1,
-        name: "Bedside Table Bowl",
-        lane_count: 24,
-        has_restaurant: true,
-        has_bar: true,
-        address_id: 2,
-        created_at: "2020-04-13T03:21:34.548Z",
-        updated_at: "2020-04-13T03:21:34.548Z"
-      },
-      {
-        id: 1,
-        name: "Bedside Table Bowl",
-        lane_count: 24,
-        has_restaurant: true,
-        has_bar: true,
-        address_id: 2,
-        created_at: "2020-04-13T03:21:34.548Z",
-        updated_at: "2020-04-13T03:21:34.548Z"
-      },
-    ]
+    id: 1,
+    name: "Bedside Table Bowl",
+    lane_count: 24,
+    has_restaurant: true,
+    has_bar: true,
+    address_id: 2,
+    created_at: "2020-04-13T03:21:34.548Z",
+    updated_at: "2020-04-13T03:21:34.548Z"
   };
 
   describe("getLocations", () => {
@@ -59,7 +45,7 @@ describe("LocationService", () => {
                 address_id: Matchers.integer(2),
                 created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
                 updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
-              }, {min: 2}),
+              }),
           },
         },
       };
@@ -71,7 +57,7 @@ describe("LocationService", () => {
       const response = await new LocationsService().getLocations();
 
       expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
-      expect(response.data).toEqual(EXPECTED_BODY);
+      expect(response.data).toEqual({ locations: [EXPECTED_BODY] });
       expect(response.status).toEqual(200);
     })
   })
@@ -116,7 +102,7 @@ describe("LocationService", () => {
       const response = await new LocationsService().getLocation(1);
 
       expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
-      expect(response.data).toEqual({ location: EXPECTED_BODY.locations[0] });
+      expect(response.data).toEqual({ location: EXPECTED_BODY });
       expect(response.status).toEqual(200);
     })
   })

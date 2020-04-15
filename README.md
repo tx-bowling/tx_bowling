@@ -13,24 +13,40 @@ TODO
 
 ### Setup
 ```
-cp .env-example .env
+$ cp .env-example .env
 ```
 
 Set environment variables
 
 ```
-bundle install
+$ bundle install
 
-rails db:create
-rails db:migrate
+$ rails db:create
+$ rails db:migrate
 
-cd ui
-yarn install
+$ cd ui
+$ yarn install
 
-cd ..
+$ cd ..
 
-foreman start
+$ foreman start
 ```
+
+### Pact - API
+#### Create Contracts
+```
+$ cd ui 
+$ yarn pact:test
+```
+
+#### Verify Contracts
+```
+$ cd ..
+$ rake pact:test
+```
+
+#### Run Mock Server
+
 
 
 ## Local Environment Setup

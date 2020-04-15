@@ -25,7 +25,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "pact:test": "jest --testPathPattern .*\\.pact\\.spec\\.js --runInBand --setupFiles ./pact/pactSetup.js --setupTestFrameworkScriptFile=./pact/pactTestWrapper.js ",
-    "pact:publish": "node ./pact/publish.js"
+    "pact:publish": "node ./pact/publish.js",
+    "pact:server": "node ./pact/stubServer.js"
   },
   "eslintConfig": {
     "extends": "react-app"

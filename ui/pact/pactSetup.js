@@ -4,7 +4,7 @@ const Pact = require("@pact-foundation/pact").Pact;
 global.port = 3001;
 global.provider = new Pact({
   port: global.port,
-  log: path.resolve(process.cwd(), 'pact', 'logs', 'mock-server.log'),
+  log: path.resolve(process.cwd(), 'pact', 'logs', 'create-contracts.log'),
   dir: path.resolve(process.cwd(), 'pact', 'pacts'),
   logLevel: 'trace',
   spec: 2,

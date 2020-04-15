@@ -4,34 +4,17 @@ import TournamentsService from "./tournaments";
 
 describe("TournamentsService", () => {
   const EXPECTED_BODY = {
-    tournaments: [
-      {
-        id: 1,
-        name: "Trusty Tournament",
-        location_id: 1,
-        schedule_ids: [1],
-        entry_cost: 5050,
-        side_pots_available: ['brackets', 'brackets'],
-        link_to_source: 'http://www.bowl.com',
-        flier: 'http://www.fillmurray.com/850/1100',
-        contact_id: 1,
-        created_at: "2020-04-13T03:21:34.548Z",
-        updated_at: "2020-04-13T03:21:34.548Z"
-      },
-      {
-        id: 1,
-        name: "Trusty Tournament",
-        location_id: 1,
-        schedule_ids: [1],
-        entry_cost: 5050,
-        side_pots_available: ['brackets', 'brackets'],
-        link_to_source: 'http://www.bowl.com',
-        flier: 'http://www.fillmurray.com/850/1100',
-        contact_id: 1,
-        created_at: "2020-04-13T03:21:34.548Z",
-        updated_at: "2020-04-13T03:21:34.548Z"
-      },
-    ]
+    id: 1,
+    name: "Trusty Tournament",
+    location_id: 1,
+    schedule_ids: [1],
+    entry_cost: 5050,
+    side_pots_available: ['brackets'],
+    link_to_source: 'http://www.bowl.com',
+    flier: 'http://www.fillmurray.com/850/1100',
+    contact_id: 1,
+    created_at: "2020-04-13T03:21:34.548Z",
+    updated_at: "2020-04-13T03:21:34.548Z"
   };
 
   describe("getTournaments", () => {
@@ -58,17 +41,15 @@ describe("TournamentsService", () => {
                 id: Matchers.integer(1),
                 name: Matchers.like("Trusty Tournament"),
                 location_id: Matchers.integer(1),
-                schedule_ids: Matchers.eachLike(Matchers.integer(1), {min: 1}),
+                schedule_ids: Matchers.eachLike(Matchers.integer(1)),
                 entry_cost: Matchers.integer(5050),
-                side_pots_available: Matchers.eachLike(
-                  Matchers.string('brackets')
-                , {min: 2}),
+                side_pots_available: Matchers.eachLike(Matchers.string('brackets')),
                 link_to_source: Matchers.string('http://www.bowl.com'),
                 flier: Matchers.string('http://www.fillmurray.com/850/1100'),
                 contact_id: Matchers.integer(1),
                 created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
                 updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
-            }, {min: 2}),
+            }),
           },
         },
       };
@@ -80,7 +61,7 @@ describe("TournamentsService", () => {
       const response = await new TournamentsService().getTournaments();
 
       expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
-      expect(response.data).toEqual(EXPECTED_BODY);
+      expect(response.data).toEqual({ tournaments: [EXPECTED_BODY] });
       expect(response.status).toEqual(200);
     })
   });
@@ -108,11 +89,9 @@ describe("TournamentsService", () => {
               id: Matchers.integer(1),
               name: Matchers.like("Trusty Tournament"),
               location_id: Matchers.integer(1),
-              schedule_ids: Matchers.eachLike(Matchers.integer(1), {min: 1}),
+              schedule_ids: Matchers.eachLike(Matchers.integer(1)),
               entry_cost: Matchers.integer(5050),
-              side_pots_available: Matchers.eachLike(
-                Matchers.string('brackets')
-                , {min: 2}),
+              side_pots_available: Matchers.eachLike(Matchers.string('brackets')),
               link_to_source: Matchers.string('http://www.bowl.com'),
               flier: Matchers.string('http://www.fillmurray.com/850/1100'),
               contact_id: Matchers.integer(1),
@@ -131,7 +110,7 @@ describe("TournamentsService", () => {
       const response = await new TournamentsService().getTournament(1);
 
       expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
-      expect(response.data).toEqual({tournament: EXPECTED_BODY.tournaments[0] });
+      expect(response.data).toEqual({tournament: EXPECTED_BODY });
       expect(response.status).toEqual(200);
     })
   })

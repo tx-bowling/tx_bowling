@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Location, type: :model do
-  let(:subject) { FactoryBot.build(:location, address: FactoryBot.build(:address, :with_coordinates)) }
+  let(:subject) { FactoryBot.build(:location, address: FactoryBot.build(:address)) }
 
   describe 'validations' do
     it 'must have a name', type: :unit do

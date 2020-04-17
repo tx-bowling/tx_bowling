@@ -18,13 +18,13 @@ Pact.provider_states_for "TX Bowling - Front End" do
 
   provider_state "there are multiple addresses" do
     set_up do
-      FactoryBot.create_list(:address, 2, :with_secondary_address, :with_coordinates)
+      FactoryBot.create_list(:address, 2, :with_secondary_address)
     end
   end
 
   provider_state "there is an address with an id of 1" do
     set_up do
-      address = FactoryBot.create(:address, :with_secondary_address, :with_coordinates)
+      address = FactoryBot.create(:address, :with_secondary_address)
       address.id = 1
       address.save
     end

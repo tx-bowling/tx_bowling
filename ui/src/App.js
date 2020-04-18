@@ -16,7 +16,7 @@ function App() {
     <Provider store={store}>
       <Layout className="layout">
         <Header>
-          <img src="/images/tx_bowling.svg" alt="TX Bowling" height={'54px'} style={{float: 'left'}}/>
+          <img src="/images/logo.svg" alt="TX Bowling" height={'54px'} style={{float: 'left'}}/>
           <Title style={{float: 'left', color: 'white'}}>TX Bowling</Title>
           <Menu
             theme="dark"
@@ -35,7 +35,9 @@ function App() {
             <Breadcrumb.Item>List</Breadcrumb.Item>
             <Breadcrumb.Item>App</Breadcrumb.Item>
           </Breadcrumb>
-          <RouterComponent />
+          <div className="site-layout-content">
+            <RouterComponent />
+          </div>
          </Content>
         <Footer style={{ textAlign: 'center' }}>
           TX Bowling ©2020
@@ -44,5 +46,6 @@ function App() {
     </Provider>
   );
 }
+
 
 export default App;

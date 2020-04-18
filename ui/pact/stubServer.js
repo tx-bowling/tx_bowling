@@ -8,6 +8,7 @@ const server = pact.createStub({
   port: 3001,
   host: 'localhost',
   log: path.resolve(process.cwd(), 'pact', 'logs', 'stub-server.log'),
+  cors: true
 });
 
 server.start();

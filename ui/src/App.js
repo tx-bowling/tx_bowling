@@ -6,6 +6,7 @@ import './App.css';
 import configureStore from './configureStore';
 import RouterComponent from "./components/RouterComponent";
 import Title from "antd/lib/typography/Title";
+import BreadcrumbsComponent from "./components/BreadcrumbsComponent";
 
 const { Header, Content, Footer } = Layout;
 
@@ -30,12 +31,8 @@ function App() {
           </Menu>
         </Header>
         <Content style={{ padding: '0 50px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
-          <div className="site-layout-content">
+          <BreadcrumbsComponent />
+          <div className="site-layout-content" style={{'text-align': 'center'}}>
             <RouterComponent />
           </div>
          </Content>

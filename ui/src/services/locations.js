@@ -8,11 +8,11 @@ class LocationsService {
   }
 
   getLocations = () => {
-    return this.http.get(`/locations.json`, {});
+    return this.http.get(`/api/v1/locations.json`, {});
   };
 
   getLocation = (id) => {
-    return this.http.get(`/locations/${id}.json`, {})
+    return this.http.get(`/api/v1/locations/${id}.json`, {})
   }
 }
 

@@ -8,11 +8,11 @@ class AddressesService {
   }
 
   getAddresses = () => {
-    return this.http.get(`/addresses.json`, {});
+    return this.http.get(`/api/v1/addresses.json`, {});
   };
 
   getAddress = (id) => {
-    return this.http.get(`/addresses/${id}.json`, {})
+    return this.http.get(`/api/v1/addresses/${id}.json`, {})
   }
 }
 

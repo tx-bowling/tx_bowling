@@ -17,8 +17,16 @@ function App() {
     <Provider store={store}>
       <Layout className="layout">
         <Header>
-          <img src="/images/logo.svg" alt="TX Bowling" height={'54px'} style={{float: 'left'}}/>
-          <Title style={{float: 'left', color: 'white'}}>TX Bowling</Title>
+          <img
+            src="/images/logo.svg"
+            alt="TX Bowling"
+            height={'60px'}
+            style={{
+              float: 'left',
+              margin: '2px',
+            }}
+          />
+          <Title style={{float: 'left', color: 'white', margin: '9px'}}>TX Bowling</Title>
           <Menu
             theme="dark"
             mode="horizontal"
@@ -32,7 +40,7 @@ function App() {
         </Header>
         <Content style={{ padding: '0 50px' }}>
           <BreadcrumbsComponent />
-          <div className="site-layout-content" style={{'text-align': 'center'}}>
+          <div className="site-layout-content" style={{'textAlign': 'center'}}>
             <RouterComponent />
           </div>
          </Content>

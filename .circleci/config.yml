@@ -52,7 +52,7 @@ commands:
             - v3-tx_bowling-
       - run: cd ui && yarn install
       - save_cache:
-          key: v2-tx_bowling-{{ arch }}-{{ checksum "./ui/yarn.lock" }}
+          key: v3-tx_bowling-{{ arch }}-{{ checksum "./ui/yarn.lock" }}
           paths:
             - ./ui/node_modules
   setup_database:
@@ -60,6 +60,8 @@ commands:
       - run: bundle exec rake db:create db:schema:load --trace
   create_pacts:
     steps:
+      - run: sudo chmod 775 /usr/local/bundle
+      - run: cp ./ui/.env-example ./ui/.env
       - run: unset BUNDLE_APP_CONFIG && cd ui && yarn pact:test
       - store_artifacts:
           path: ./ui/pact/pacts
@@ -105,6 +107,8 @@ jobs:
           # Must be relative path from root
           paths:
             - tx_bowling_-_front_end-tx_bowling_-_service.json
+      - store_artifact:
+          path: ./ui/pact/logs/
   verify_contract:
     executor: ruby
     resource_class: small
@@ -137,7 +141,7 @@ workflows:
       - static_analysis
       - security
       - test
-      - create_contract
-      - verify_contract:
-          requires:
-            - create_contract
+#      - create_contract
+#      - verify_contract:
+#          requires:
+#            - create_contract

@@ -11,9 +11,20 @@ describe("LocationService", () => {
     lane_count: 24,
     has_restaurant: true,
     has_bar: true,
-    address_id: 2,
+    address_id: 1,
     created_at: "2020-04-13T03:21:34.548Z",
     updated_at: "2020-04-13T03:21:34.548Z"
+  };
+
+  const RESPONSE_BODY = {
+    id: Matchers.integer(1),
+    name: Matchers.like("Bedside Table Bowl"),
+    lane_count: Matchers.like(24),
+    has_restaurant: Matchers.boolean(true),
+    has_bar: Matchers.boolean(true),
+    address_id: Matchers.integer(1),
+    created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
+    updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
   };
 
   describe("getLocations", () => {
@@ -36,16 +47,7 @@ describe("LocationService", () => {
           },
           body: {
             locations:
-              Matchers.eachLike({
-                id: Matchers.integer(1),
-                name: Matchers.like("Bedside Table Bowl"),
-                lane_count: Matchers.like(24),
-                has_restaurant: Matchers.boolean(true),
-                has_bar: Matchers.boolean(true),
-                address_id: Matchers.integer(2),
-                created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
-                updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
-              }),
+              Matchers.eachLike(RESPONSE_BODY),
           },
         },
       };
@@ -81,16 +83,7 @@ describe("LocationService", () => {
             "Content-Type": "application/json; charset=utf-8",
           },
           body: {
-            location: {
-              id: Matchers.integer(1),
-              name: Matchers.like("Bedside Table Bowl"),
-              lane_count: Matchers.like(24),
-              has_restaurant: Matchers.boolean(true),
-              has_bar: Matchers.boolean(true),
-              address_id: Matchers.integer(2),
-              created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
-              updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
-            },
+            location: RESPONSE_BODY,
           },
         },
       };

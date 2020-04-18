@@ -4,7 +4,7 @@ import React from "react";
 class LoadingComponent extends React.Component {
   render() {
     return (
-      <Spin size="large" tip="Loading..." style={{'display': 'inline-block', 'padding-top': '50px'}}/>
+      <Spin size="large" tip="Loading..." style={{'display': 'inline-block', 'paddingTop': '50px'}}/>
     )
   }
 }

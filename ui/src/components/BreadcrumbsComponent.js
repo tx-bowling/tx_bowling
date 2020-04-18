@@ -6,8 +6,6 @@ class BreadcrumbsComponent extends React.Component {
   render() {
     const { breadcrumbs } = this.props;
     const breadcrumbsItems = breadcrumbs.map((breadcrumb, index) => {
-      console.log('breadcrumb.url: ', breadcrumb.url)
-      console.log('breadcrumb.value: ', breadcrumb.value)
       return <Breadcrumb.Item key={index}>
         {(breadcrumbs.length - 1) === index ? <span>{breadcrumb.value}</span> : <a href={breadcrumb.url}>{breadcrumb.value}</a>}
       </Breadcrumb.Item>
@@ -29,4 +27,5 @@ function mapStateToProps(state) {
     breadcrumbs: breadcrumbs.breadcrumbs || []
   }
 };
+
 export default connect(mapStateToProps)(BreadcrumbsComponent);

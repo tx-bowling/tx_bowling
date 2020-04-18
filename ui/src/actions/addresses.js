@@ -1,5 +1,6 @@
 import AddressesService from './../services/addresses';
 
+// GET ADDRESSES -----------------------------------------------
 export const GET_ADDRESSES_STARTED = 'GET_ADDRESSES_STARTED';
 export const GET_ADDRESSES_SUCCESS = 'GET_ADDRESSES_SUCCESS';
 export const GET_ADDRESSES_FAILURE = 'GET_ADDRESSES_FAILURE';
@@ -37,6 +38,45 @@ export const getAddresses = () => {
       })
       .catch(err => {
         dispatch(getAddressesFailure(err.message));
+      });
+  };
+};
+
+// GET ADDRESS -----------------------------------------------
+export const GET_ADDRESS_STARTED = 'GET_ADDRESS_STARTED';
+export const GET_ADDRESS_SUCCESS = 'GET_ADDRESS_SUCCESS';
+export const GET_ADDRESS_FAILURE = 'GET_ADDRESS_FAILURE';
+
+const getAddressStarted = () => ({
+  type: GET_ADDRESS_STARTED,
+});
+
+const getAddressSuccess = (addressData) => {
+  return {
+    type: GET_ADDRESS_SUCCESS,
+    payload: {
+      address: addressData.address,
+    },
+  };
+};
+
+export const getAddressFailure = (errorMessage) => ({
+  type: GET_ADDRESS_FAILURE,
+  payload: {
+    errorMessage,
+  },
+});
+
+export const getAddress = (id) => {
+  return (dispatch) => {
+    dispatch(getAddressStarted());
+    new AddressesService()
+      .getAddress(id)
+      .then(res => {
+        dispatch(getAddressSuccess(res.data));
+      })
+      .catch(err => {
+        dispatch(getAddressFailure(err.message));
       });
   };
 };

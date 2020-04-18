@@ -1,6 +1,7 @@
 import TournamentsService from './../services/tournaments';
+import { getLocation } from './locations';
 
-// GET TOURNAMENTS
+// GET TOURNAMENTS ----------------------------------------------
 export const GET_TOURNAMENTS_STARTED = 'GET_TOURNAMENTS_STARTED';
 export const GET_TOURNAMENTS_SUCCESS = 'GET_TOURNAMENTS_SUCCESS';
 export const GET_TOURNAMENTS_FAILURE = 'GET_TOURNAMENTS_FAILURE';
@@ -10,8 +11,6 @@ const getTournamentsStarted = () => ({
 });
 
 const getTournamentsSuccess = (tournamentsData) => {
-  debugger
-
   let data = {};
   tournamentsData.tournaments.forEach(tournament => (data[tournament.id] = tournament));
 
@@ -44,7 +43,7 @@ export const getTournaments = () => {
   };
 };
 
-// GET TOURNAMENT
+// GET TOURNAMENT -----------------------------------------------
 export const GET_TOURNAMENT_STARTED = 'GET_TOURNAMENT_STARTED';
 export const GET_TOURNAMENT_SUCCESS = 'GET_TOURNAMENT_SUCCESS';
 export const GET_TOURNAMENT_FAILURE = 'GET_TOURNAMENT_FAILURE';
@@ -75,7 +74,9 @@ export const getTournament = (id) => {
     new TournamentsService()
       .getTournament(id)
       .then(res => {
-        dispatch(getTournamentSuccess(res.data));
+        const tournament = res.data;
+        dispatch(getLocation(tournament.tournament.location_id));
+        dispatch(getTournamentSuccess(tournament));
       })
       .catch(err => {
         dispatch(getTournamentFailure(err.message));

@@ -26,7 +26,7 @@ class BaseService {
   };
 
   fullPath = (path) => {
-    return `${process.env.REACT_APP_API_URL}${path}`
+    return `${process.env.REACT_APP_API_URL}${path}`;
   };
 
   spread = (config) => {

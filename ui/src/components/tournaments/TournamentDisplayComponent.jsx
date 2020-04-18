@@ -8,15 +8,19 @@ import LoadingComponent from "../LoadingComponent";
 const { Title } = Typography;
 
 class TournamentDisplayComponent extends React.Component {
+  addressQuery = () => {
+    const { location, address } = this.props;
+    return `${location.name} ${address.street_address}, ${address.secondary_address}, ${address.city}, ${address.state} ${address.zip_code}`
+  };
+
   render() {
     const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY;
-    const { tournament, location, address, loading } = this.props;
-    const addressQuery = `${location.name} ${address.street_address}, ${address.secondary_address}, ${address.city}, ${address.state} ${address.zip_code}`
+    const { tournament, address, loading } = this.props;
 
     return (
       <div>
         {loading && <LoadingComponent />}
-        {!loading && <div style={{'text-align': 'left'}}>
+        {!loading && <div style={{'textAlign': 'left'}}>
             <Title>{tournament.name}</Title>
             <Row>
               <Col lg={11} xs={24}>
@@ -55,17 +59,17 @@ class TournamentDisplayComponent extends React.Component {
                   width="100%"
                   height="450"
                   frameBorder="0" style={{border: 0}}
-                  src={`https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${addressQuery}`}
-                  allowFullScreen>
-                </iframe>
+                  src={`https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${this.addressQuery()}`}
+                  allowFullScreen
+                />
               </Col>
-              <Col lg={2} xs={0} style={{'text-align': 'center'}}>
+              <Col lg={2} xs={0} style={{'textAlign': 'center'}}>
                 <Divider type="vertical" style={{height: '100%', 'display': 'inline-block'}}/>
               </Col>
               <Col lg={11} xs={24}>
                 <Title level={3}>More Info</Title>
-                <span>Sign up at: <a src={tournament.link_to_source}>{tournament.source_description}</a></span>
-                <img src={tournament.flier} style={{width: '100%', 'padding-top': '10px'}}/>
+                <span>Sign up at: <a href={tournament.link_to_source}>{tournament.source_description}</a></span>
+                <img src={tournament.flier} style={{width: '100%', 'paddingTop': '10px'}} alt={'Tournament flier'} />
               </Col>
             </Row>
           </div>
@@ -75,34 +79,24 @@ class TournamentDisplayComponent extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { tournaments } = state;
+function emptyObject(object) {
+  return Object.keys(object).length === 0 && object.constructor === Object
+}
 
-  return {
-    loading: tournaments.loading == undefined ? true : tournaments.loading,
-    tournament: tournaments.activeTournament,
-    location: {
-      "id": 1,
-      "name": "Dart Bowl",
-      "lane_count": 24,
-      "has_restaurant": true,
-      "has_bar": true,
-      "address_id": 2,
-      "created_at": "2020-04-13T03:21:34.548Z",
-      "updated_at": "2020-04-13T03:21:34.548Z"
-    },
-    address: {
-      "id": 1,
-      "street_address": "5700 Grover Ave",
-      "secondary_address": "",
-      "city": "Austin",
-      "state": "TX",
-      "zip_code": "78756",
-      "notes": "Near the school",
-      "created_at": "2020-04-13T03:21:34.548Z",
-      "updated_at": "2020-04-13T03:21:34.548Z"
-    }
+function mapStateToProps(state) {
+  const { tournaments, addresses, locations } = state;
+
+  const loading = emptyObject(tournaments) || tournaments.loading ||
+                    emptyObject(locations) || locations.loading ||
+                    emptyObject(addresses) || addresses.loading;
+
+  const newState = {
+      loading: loading,
+      tournament: tournaments.activeTournament,
+      location: locations.activeLocation,
+      address: addresses.activeAddress,
   };
+  return newState;
 }
 
 export default connect(mapStateToProps)(TournamentDisplayComponent);

@@ -18,6 +18,21 @@ describe("TournamentsService", () => {
     updated_at: "2020-04-13T03:21:34.548Z"
   };
 
+  const RESPONSE_BODY = {
+    id: Matchers.integer(1),
+    name: Matchers.like("Trusty Tournament"),
+    location_id: Matchers.integer(1),
+    schedule_ids: Matchers.eachLike(Matchers.integer(1)),
+    entry_cost: Matchers.integer(5050),
+    side_pots_available: Matchers.eachLike(Matchers.string('brackets')),
+    link_to_source: Matchers.string('http://www.bowl.com'),
+    source_description: Matchers.string('USBC Open'),
+    flier: Matchers.string('http://www.fillmurray.com/850/1100'),
+    contact_id: Matchers.integer(1),
+    created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
+    updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
+  }
+
   describe("getTournaments", () => {
     beforeEach( () => {
       const interaction = {
@@ -38,20 +53,7 @@ describe("TournamentsService", () => {
           },
           body: {
             tournaments:
-              Matchers.eachLike({
-                id: Matchers.integer(1),
-                name: Matchers.like("Trusty Tournament"),
-                location_id: Matchers.integer(1),
-                schedule_ids: Matchers.eachLike(Matchers.integer(1)),
-                entry_cost: Matchers.integer(5050),
-                side_pots_available: Matchers.eachLike(Matchers.string('brackets')),
-                link_to_source: Matchers.string('http://www.bowl.com'),
-                source_description: Matchers.string('USBC Open'),
-                flier: Matchers.string('http://www.fillmurray.com/850/1100'),
-                contact_id: Matchers.integer(1),
-                created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
-                updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
-            }),
+              Matchers.eachLike(RESPONSE_BODY),
           },
         },
       };
@@ -87,21 +89,7 @@ describe("TournamentsService", () => {
             "Content-Type": "application/json; charset=utf-8",
           },
           body: {
-            tournament: {
-              id: Matchers.integer(1),
-              name: Matchers.like("Trusty Tournament"),
-              location_id: Matchers.integer(1),
-              schedule_ids: Matchers.eachLike(Matchers.integer(1)),
-              entry_cost: Matchers.integer(5050),
-              side_pots_available: Matchers.eachLike(Matchers.string('brackets')),
-              link_to_source: Matchers.string('http://www.bowl.com'),
-              source_description: Matchers.string('USBC Open'),
-              flier: Matchers.string('http://www.fillmurray.com/850/1100'),
-              contact_id: Matchers.integer(1),
-              created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
-              updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
-            }
-
+            tournament: RESPONSE_BODY
           },
         },
       };

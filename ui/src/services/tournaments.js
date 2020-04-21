@@ -8,11 +8,11 @@ class TournamentsService {
     }
 
     getTournaments = () => {
-        return this.http.get(`/tournaments.json`, {});
+        return this.http.get(`/api/v1/tournaments.json`, {});
     };
 
     getTournament = (id) => {
-        return this.http.get(`/tournaments/${id}.json`, {});
+        return this.http.get(`/api/v1/tournaments/${id}.json`, {});
     };
 
 }

@@ -17,6 +17,18 @@ describe("AddressesService", () => {
     updated_at: "2020-04-13T03:21:34.548Z"
   };
 
+  const RESPONSE_BODY = {
+    id: Matchers.integer(1),
+    street_address: Matchers.string('5700 Grover Ave'),
+    secondary_address: Matchers.string(''),
+    city: Matchers.string('Austin'),
+    state: Matchers.string('TX'),
+    zip_code: Matchers.string('78756'),
+    notes: Matchers.string('Near the school'),
+    created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
+    updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
+  };
+
   describe("getAddresses", () => {
     beforeEach( () => {
       const interaction = {
@@ -37,17 +49,7 @@ describe("AddressesService", () => {
           },
           body: {
             addresses:
-              Matchers.eachLike({
-                id: Matchers.integer(1),
-                street_address: Matchers.string('5700 Grover Ave'),
-                secondary_address: Matchers.string(''),
-                city: Matchers.string('Austin'),
-                state: Matchers.string('TX'),
-                zip_code: Matchers.string('78756'),
-                notes: Matchers.string('Near the school'),
-                created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
-                updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
-              }),
+              Matchers.eachLike(RESPONSE_BODY),
           },
         },
       };
@@ -83,17 +85,7 @@ describe("AddressesService", () => {
             "Content-Type": "application/json; charset=utf-8",
           },
           body: {
-            address: {
-              id: Matchers.integer(1),
-              street_address: Matchers.string('5700 Grover Ave'),
-              secondary_address: Matchers.string(''),
-              city: Matchers.string('Austin'),
-              state: Matchers.string('TX'),
-              zip_code: Matchers.string('78756'),
-              notes: Matchers.string('Near the school'),
-              created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
-              updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
-            },
+            address: RESPONSE_BODY,
           },
         },
       };

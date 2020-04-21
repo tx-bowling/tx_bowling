@@ -12,7 +12,7 @@ const getLocationsStarted = () => ({
 
 const getLocationsSuccess = (locationsData) => {
   let data = {};
-  locationsData.forEach(location => (data[location.id] = location));
+  locationsData.locations.forEach(location => (data[location.id] = location));
 
   return {
     type: GET_LOCATIONS_SUCCESS,

@@ -11,7 +11,17 @@ describe("LocationService", () => {
     lane_count: 24,
     has_restaurant: true,
     has_bar: true,
-    address_id: 1,
+    address: {
+      id: 1,
+      street_address: '5700 Grover Ave',
+      secondary_address: '',
+      city: 'Austin',
+      state: 'TX',
+      zip_code: '78756',
+      notes: 'Near the school',
+      created_at: "2020-04-13T03:21:34.548Z",
+      updated_at: "2020-04-13T03:21:34.548Z"
+    },
     created_at: "2020-04-13T03:21:34.548Z",
     updated_at: "2020-04-13T03:21:34.548Z"
   };
@@ -22,7 +32,17 @@ describe("LocationService", () => {
     lane_count: Matchers.like(24),
     has_restaurant: Matchers.boolean(true),
     has_bar: Matchers.boolean(true),
-    address_id: Matchers.integer(1),
+    address: Matchers.like({
+      id: Matchers.integer(1),
+      street_address: Matchers.string('5700 Grover Ave'),
+      secondary_address: Matchers.string(''),
+      city: Matchers.string('Austin'),
+      state: Matchers.string('TX'),
+      zip_code: Matchers.string('78756'),
+      notes: Matchers.string('Near the school'),
+      created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
+      updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
+    }),
     created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
     updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
   };

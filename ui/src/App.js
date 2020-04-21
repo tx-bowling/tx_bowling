@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu } from 'antd';
 
 import './App.css';
 import configureStore from './configureStore';
@@ -15,8 +15,8 @@ function App() {
 
   return (
     <Provider store={store}>
-      <Layout className="layout">
-        <Header>
+      <Layout className="layout" >
+        <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           <img
             src="/images/logo.svg"
             alt="TX Bowling"
@@ -38,9 +38,12 @@ function App() {
             <Menu.Item key="3">nav 3</Menu.Item>
           </Menu>
         </Header>
-        <Content style={{ padding: '0 50px' }}>
+        <Content style={{
+          padding: '0 50px',
+          marginTop: '64px'
+        }}>
           <BreadcrumbsComponent />
-          <div className="site-layout-content" style={{'textAlign': 'center'}}>
+          <div className="site-layout-content">
             <RouterComponent />
           </div>
          </Content>

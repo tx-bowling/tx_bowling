@@ -19,7 +19,7 @@ class TournamentDisplayComponent extends React.Component {
 
     return (
       <div>
-        {loading && <LoadingComponent />}
+        {loading && <div style={{'textAlign': 'center'}}><LoadingComponent /></div>}
         {!loading && <div style={{'textAlign': 'left'}}>
             <Title>{tournament.name}</Title>
             <Row>

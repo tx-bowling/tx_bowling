@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, Form, InputNumber, Checkbox, Button } from 'antd'
+import { Input, Form, InputNumber, Switch, Button } from 'antd'
 
 class LocationFormComponent extends React.Component {
   constructor(props) {
@@ -52,6 +52,9 @@ class LocationFormComponent extends React.Component {
         onFinish={this.onFinish}
         onFinishFailed={this.onFinishFailed}
         scrollToFirstError={true}
+        labelCol={{ span: 3 }}
+        wrapperCol={{ span: 9 }}
+        layout="horizontal"
       >
         <Form.Item
           label="Name"
@@ -73,24 +76,13 @@ class LocationFormComponent extends React.Component {
             onChange={this.handleInputChange.bind(this, 'laneCount')} min={0}
           />
         </Form.Item>
-
-        <Form.Item {...this.nonLabelLayout} name="hasRestaurant" valuePropName="unchecked">
-          <Checkbox
-            defaultChecked={hasRestaurant}
-            onChange={this.handleInputChange.bind(this, 'hasRestaurant')}
-          >
-            Has a restaurant?
-          </Checkbox>
+        <Form.Item label="Has a restaurant?">
+          <Switch onChange={this.handleInputChange.bind(this, 'hasRestaurant')} defaultChecked={hasRestaurant}/>
+        </Form.Item>
+        <Form.Item label="Has a bar?">
+          <Switch onChange={this.handleInputChange.bind(this, 'hasBar')} defaultChecked={hasBar}/>
         </Form.Item>
 
-        <Form.Item {...this.nonLabelLayout} name="hasBar" valuePropName="unchecked">
-          <Checkbox
-            defaultChecked={hasBar}
-            onChange={this.handleInputChange.bind(this, 'hasBar')}
-          >
-            Has a bar?
-          </Checkbox>
-        </Form.Item>
 
         <h3>Address</h3>
 

@@ -1,46 +1,36 @@
 import * as Matchers from "@pact-foundation/pact/dsl/matchers";
 
-import TournamentsService from "./tournaments";
+import SchedulesService from "./schedules";
 
-describe("TournamentsService", () => {
+describe("SchedulesService", () => {
+
+
   const EXPECTED_BODY = {
     id: 1,
-    name: "Trusty Tournament",
-    location_id: 1,
-    schedule_ids: [1],
-    entry_cost: 5050,
-    side_pots_available: ['brackets'],
-    link_to_source: 'http://www.bowl.com',
-    source_description: 'USBC Open Championships',
-    flier: 'http://www.fillmurray.com/850/1100',
-    contact_id: 1,
+    scheduled_at: "2020-04-13T03:21:34.548Z",
+    event_id: 1,
+    tournament_id: 1,
     created_at: "2020-04-13T03:21:34.548Z",
     updated_at: "2020-04-13T03:21:34.548Z"
   };
 
   const RESPONSE_BODY = {
     id: Matchers.integer(1),
-    name: Matchers.like("Trusty Tournament"),
-    location_id: Matchers.integer(1),
-    schedule_ids: Matchers.eachLike(Matchers.integer(1)),
-    entry_cost: Matchers.integer(5050),
-    side_pots_available: Matchers.eachLike(Matchers.string('brackets')),
-    link_to_source: Matchers.string('http://www.bowl.com'),
-    source_description: Matchers.string('USBC Open Championships'),
-    flier: Matchers.string('http://www.fillmurray.com/850/1100'),
-    contact_id: Matchers.integer(1),
+    scheduled_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
+    event_id: Matchers.integer(1),
+    tournament_id: Matchers.integer(1),
     created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
     updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
-  }
+  };
 
-  describe("getTournaments", () => {
+  describe("getSchedules", () => {
     beforeEach( () => {
       const interaction = {
-        state: "there are multiple tournaments",
-        uponReceiving: "a request for retrieving tournaments",
+        state: "there are multiple schedules",
+        uponReceiving: "a request for retrieving schedules",
         withRequest: {
           method: "GET",
-          path: "/api/v1/tournaments.json",
+          path: "/api/v1/schedules.json",
           query: {},
           headers: {
             Accept: "application/json",
@@ -52,7 +42,7 @@ describe("TournamentsService", () => {
             "Content-Type": "application/json; charset=utf-8",
           },
           body: {
-            tournaments:
+            schedules:
               Matchers.eachLike(RESPONSE_BODY),
           },
         },
@@ -62,22 +52,22 @@ describe("TournamentsService", () => {
     });
 
     it("returns a successful body", async () => {
-      const response = await new TournamentsService().getTournaments();
+      const response = await new SchedulesService().getSchedules();
 
       expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
-      expect(response.data).toEqual({ tournaments: [EXPECTED_BODY] });
+      expect(response.data).toEqual({ schedules: [EXPECTED_BODY] });
       expect(response.status).toEqual(200);
     })
-  });
+  })
 
-  describe('get tournament', ()=> {
+  describe("getSchedule", () => {
     beforeEach( () => {
       const interaction = {
-        state: "there is a tournament with an id of 1",
-        uponReceiving: "a request for retrieving a single tournament",
+        state: "there is a schedule with an id of 1",
+        uponReceiving: "a request for retrieving a single schedule",
         withRequest: {
           method: "GET",
-          path: "/api/v1/tournaments/1.json",
+          path: "/api/v1/schedules/1.json",
           query: {},
           headers: {
             Accept: "application/json",
@@ -89,7 +79,7 @@ describe("TournamentsService", () => {
             "Content-Type": "application/json; charset=utf-8",
           },
           body: {
-            tournament: RESPONSE_BODY
+            schedule: RESPONSE_BODY,
           },
         },
       };
@@ -98,11 +88,12 @@ describe("TournamentsService", () => {
     });
 
     it("returns a successful body", async () => {
-      const response = await new TournamentsService().getTournament(1);
+      const response = await new SchedulesService().getSchedule(1);
 
       expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
-      expect(response.data).toEqual({tournament: EXPECTED_BODY });
+      expect(response.data).toEqual({ schedule: EXPECTED_BODY });
       expect(response.status).toEqual(200);
     })
   })
+
 });

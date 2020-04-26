@@ -7,6 +7,410 @@
   },
   "interactions": [
     {
+      "description": "a request for retrieving schedules",
+      "providerState": "there are multiple schedules",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/schedules.json",
+        "query": "",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "schedules": [
+            {
+              "id": 1,
+              "scheduled_at": "2020-04-13T03:21:34.548Z",
+              "event_id": 1,
+              "tournament_id": 1,
+              "created_at": "2020-04-13T03:21:34.548Z",
+              "updated_at": "2020-04-13T03:21:34.548Z"
+            }
+          ]
+        },
+        "matchingRules": {
+          "$.body.schedules": {
+            "min": 1
+          },
+          "$.body.schedules[*].*": {
+            "match": "type"
+          },
+          "$.body.schedules[*].id": {
+            "match": "type"
+          },
+          "$.body.schedules[*].scheduled_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.schedules[*].event_id": {
+            "match": "type"
+          },
+          "$.body.schedules[*].tournament_id": {
+            "match": "type"
+          },
+          "$.body.schedules[*].created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.schedules[*].updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          }
+        }
+      }
+    },
+    {
+      "description": "a request for retrieving a single schedule",
+      "providerState": "there is a schedule with an id of 1",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/schedules/1.json",
+        "query": "",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "schedule": {
+            "id": 1,
+            "scheduled_at": "2020-04-13T03:21:34.548Z",
+            "event_id": 1,
+            "tournament_id": 1,
+            "created_at": "2020-04-13T03:21:34.548Z",
+            "updated_at": "2020-04-13T03:21:34.548Z"
+          }
+        },
+        "matchingRules": {
+          "$.body.schedule.id": {
+            "match": "type"
+          },
+          "$.body.schedule.scheduled_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.schedule.event_id": {
+            "match": "type"
+          },
+          "$.body.schedule.tournament_id": {
+            "match": "type"
+          },
+          "$.body.schedule.created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.schedule.updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          }
+        }
+      }
+    },
+    {
+      "description": "a request for retrieving events",
+      "providerState": "there are multiple events",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/events.json",
+        "query": "",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "events": [
+            {
+              "id": 1,
+              "name": "Singles",
+              "created_at": "2020-04-13T03:21:34.548Z",
+              "updated_at": "2020-04-13T03:21:34.548Z"
+            }
+          ]
+        },
+        "matchingRules": {
+          "$.body.events": {
+            "min": 1
+          },
+          "$.body.events[*].*": {
+            "match": "type"
+          },
+          "$.body.events[*].id": {
+            "match": "type"
+          },
+          "$.body.events[*].name": {
+            "match": "type"
+          },
+          "$.body.events[*].created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.events[*].updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          }
+        }
+      }
+    },
+    {
+      "description": "a request for retrieving a single event",
+      "providerState": "there is a event with an id of 1",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/events/1.json",
+        "query": "",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "event": {
+            "id": 1,
+            "name": "Singles",
+            "created_at": "2020-04-13T03:21:34.548Z",
+            "updated_at": "2020-04-13T03:21:34.548Z"
+          }
+        },
+        "matchingRules": {
+          "$.body.event.id": {
+            "match": "type"
+          },
+          "$.body.event.name": {
+            "match": "type"
+          },
+          "$.body.event.created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.event.updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          }
+        }
+      }
+    },
+    {
+      "description": "a request for retrieving locations",
+      "providerState": "there are multiple locations",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/locations.json",
+        "query": "",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "locations": [
+            {
+              "id": 1,
+              "name": "Bedside Table Bowl",
+              "lane_count": 24,
+              "has_restaurant": true,
+              "has_bar": true,
+              "address": {
+                "id": 1,
+                "street_address": "5700 Grover Ave",
+                "secondary_address": "",
+                "city": "Austin",
+                "state": "TX",
+                "zip_code": "78756",
+                "notes": "Near the school",
+                "created_at": "2020-04-13T03:21:34.548Z",
+                "updated_at": "2020-04-13T03:21:34.548Z"
+              },
+              "created_at": "2020-04-13T03:21:34.548Z",
+              "updated_at": "2020-04-13T03:21:34.548Z"
+            }
+          ]
+        },
+        "matchingRules": {
+          "$.body.locations": {
+            "min": 1
+          },
+          "$.body.locations[*].*": {
+            "match": "type"
+          },
+          "$.body.locations[*].id": {
+            "match": "type"
+          },
+          "$.body.locations[*].name": {
+            "match": "type"
+          },
+          "$.body.locations[*].lane_count": {
+            "match": "type"
+          },
+          "$.body.locations[*].has_restaurant": {
+            "match": "type"
+          },
+          "$.body.locations[*].has_bar": {
+            "match": "type"
+          },
+          "$.body.locations[*].address": {
+            "match": "type"
+          },
+          "$.body.locations[*].address.id": {
+            "match": "type"
+          },
+          "$.body.locations[*].address.street_address": {
+            "match": "type"
+          },
+          "$.body.locations[*].address.secondary_address": {
+            "match": "type"
+          },
+          "$.body.locations[*].address.city": {
+            "match": "type"
+          },
+          "$.body.locations[*].address.state": {
+            "match": "type"
+          },
+          "$.body.locations[*].address.zip_code": {
+            "match": "type"
+          },
+          "$.body.locations[*].address.notes": {
+            "match": "type"
+          },
+          "$.body.locations[*].address.created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.locations[*].address.updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.locations[*].created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.locations[*].updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          }
+        }
+      }
+    },
+    {
+      "description": "a request for retrieving a single location",
+      "providerState": "there is a location with an id of 1",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/locations/1.json",
+        "query": "",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "location": {
+            "id": 1,
+            "name": "Bedside Table Bowl",
+            "lane_count": 24,
+            "has_restaurant": true,
+            "has_bar": true,
+            "address": {
+              "id": 1,
+              "street_address": "5700 Grover Ave",
+              "secondary_address": "",
+              "city": "Austin",
+              "state": "TX",
+              "zip_code": "78756",
+              "notes": "Near the school",
+              "created_at": "2020-04-13T03:21:34.548Z",
+              "updated_at": "2020-04-13T03:21:34.548Z"
+            },
+            "created_at": "2020-04-13T03:21:34.548Z",
+            "updated_at": "2020-04-13T03:21:34.548Z"
+          }
+        },
+        "matchingRules": {
+          "$.body.location.id": {
+            "match": "type"
+          },
+          "$.body.location.name": {
+            "match": "type"
+          },
+          "$.body.location.lane_count": {
+            "match": "type"
+          },
+          "$.body.location.has_restaurant": {
+            "match": "type"
+          },
+          "$.body.location.has_bar": {
+            "match": "type"
+          },
+          "$.body.location.address": {
+            "match": "type"
+          },
+          "$.body.location.address.id": {
+            "match": "type"
+          },
+          "$.body.location.address.street_address": {
+            "match": "type"
+          },
+          "$.body.location.address.secondary_address": {
+            "match": "type"
+          },
+          "$.body.location.address.city": {
+            "match": "type"
+          },
+          "$.body.location.address.state": {
+            "match": "type"
+          },
+          "$.body.location.address.zip_code": {
+            "match": "type"
+          },
+          "$.body.location.address.notes": {
+            "match": "type"
+          },
+          "$.body.location.address.created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.location.address.updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.location.created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.location.updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          }
+        }
+      }
+    },
+    {
       "description": "a request for retrieving addresses",
       "providerState": "there are multiple addresses",
       "request": {
@@ -320,208 +724,6 @@
             "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
           },
           "$.body.tournament.updated_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          }
-        }
-      }
-    },
-    {
-      "description": "a request for retrieving locations",
-      "providerState": "there are multiple locations",
-      "request": {
-        "method": "GET",
-        "path": "/api/v1/locations.json",
-        "query": "",
-        "headers": {
-          "Accept": "application/json"
-        }
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "locations": [
-            {
-              "id": 1,
-              "name": "Bedside Table Bowl",
-              "lane_count": 24,
-              "has_restaurant": true,
-              "has_bar": true,
-              "address": {
-                "id": 1,
-                "street_address": "5700 Grover Ave",
-                "secondary_address": "",
-                "city": "Austin",
-                "state": "TX",
-                "zip_code": "78756",
-                "notes": "Near the school",
-                "created_at": "2020-04-13T03:21:34.548Z",
-                "updated_at": "2020-04-13T03:21:34.548Z"
-              },
-              "created_at": "2020-04-13T03:21:34.548Z",
-              "updated_at": "2020-04-13T03:21:34.548Z"
-            }
-          ]
-        },
-        "matchingRules": {
-          "$.body.locations": {
-            "min": 1
-          },
-          "$.body.locations[*].*": {
-            "match": "type"
-          },
-          "$.body.locations[*].id": {
-            "match": "type"
-          },
-          "$.body.locations[*].name": {
-            "match": "type"
-          },
-          "$.body.locations[*].lane_count": {
-            "match": "type"
-          },
-          "$.body.locations[*].has_restaurant": {
-            "match": "type"
-          },
-          "$.body.locations[*].has_bar": {
-            "match": "type"
-          },
-          "$.body.locations[*].address": {
-            "match": "type"
-          },
-          "$.body.locations[*].address.id": {
-            "match": "type"
-          },
-          "$.body.locations[*].address.street_address": {
-            "match": "type"
-          },
-          "$.body.locations[*].address.secondary_address": {
-            "match": "type"
-          },
-          "$.body.locations[*].address.city": {
-            "match": "type"
-          },
-          "$.body.locations[*].address.state": {
-            "match": "type"
-          },
-          "$.body.locations[*].address.zip_code": {
-            "match": "type"
-          },
-          "$.body.locations[*].address.notes": {
-            "match": "type"
-          },
-          "$.body.locations[*].address.created_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.locations[*].address.updated_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.locations[*].created_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.locations[*].updated_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          }
-        }
-      }
-    },
-    {
-      "description": "a request for retrieving a single location",
-      "providerState": "there is a location with an id of 1",
-      "request": {
-        "method": "GET",
-        "path": "/api/v1/locations/1.json",
-        "query": "",
-        "headers": {
-          "Accept": "application/json"
-        }
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "location": {
-            "id": 1,
-            "name": "Bedside Table Bowl",
-            "lane_count": 24,
-            "has_restaurant": true,
-            "has_bar": true,
-            "address": {
-              "id": 1,
-              "street_address": "5700 Grover Ave",
-              "secondary_address": "",
-              "city": "Austin",
-              "state": "TX",
-              "zip_code": "78756",
-              "notes": "Near the school",
-              "created_at": "2020-04-13T03:21:34.548Z",
-              "updated_at": "2020-04-13T03:21:34.548Z"
-            },
-            "created_at": "2020-04-13T03:21:34.548Z",
-            "updated_at": "2020-04-13T03:21:34.548Z"
-          }
-        },
-        "matchingRules": {
-          "$.body.location.id": {
-            "match": "type"
-          },
-          "$.body.location.name": {
-            "match": "type"
-          },
-          "$.body.location.lane_count": {
-            "match": "type"
-          },
-          "$.body.location.has_restaurant": {
-            "match": "type"
-          },
-          "$.body.location.has_bar": {
-            "match": "type"
-          },
-          "$.body.location.address": {
-            "match": "type"
-          },
-          "$.body.location.address.id": {
-            "match": "type"
-          },
-          "$.body.location.address.street_address": {
-            "match": "type"
-          },
-          "$.body.location.address.secondary_address": {
-            "match": "type"
-          },
-          "$.body.location.address.city": {
-            "match": "type"
-          },
-          "$.body.location.address.state": {
-            "match": "type"
-          },
-          "$.body.location.address.zip_code": {
-            "match": "type"
-          },
-          "$.body.location.address.notes": {
-            "match": "type"
-          },
-          "$.body.location.address.created_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.location.address.updated_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.location.created_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.location.updated_at": {
             "match": "regex",
             "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
           }

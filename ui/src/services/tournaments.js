@@ -15,6 +15,9 @@ class TournamentsService {
         return this.http.get(`/api/v1/tournaments/${id}.json`, {});
     };
 
+    getTournamentLocation = (id) => {
+        return this.http.get(`/api/v1/tournaments/${id}/location.json`, {});
+    };
 }
 
 export default TournamentsService;

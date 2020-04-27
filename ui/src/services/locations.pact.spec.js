@@ -2,51 +2,49 @@ import * as Matchers from "@pact-foundation/pact/dsl/matchers";
 
 import LocationsService from "./locations";
 
-describe("LocationService", () => {
-
-
-  const EXPECTED_BODY = {
+export const EXPECTED_BODY = {
+  id: 1,
+  name: "Bedside Table Bowl",
+  lane_count: 24,
+  has_restaurant: true,
+  has_bar: true,
+  address: {
     id: 1,
-    name: "Bedside Table Bowl",
-    lane_count: 24,
-    has_restaurant: true,
-    has_bar: true,
-    address: {
-      id: 1,
-      street_address: '5700 Grover Ave',
-      secondary_address: '',
-      city: 'Austin',
-      state: 'TX',
-      zip_code: '78756',
-      notes: 'Near the school',
-      created_at: "2020-04-13T03:21:34.548Z",
-      updated_at: "2020-04-13T03:21:34.548Z"
-    },
+    street_address: '5700 Grover Ave',
+    secondary_address: '',
+    city: 'Austin',
+    state: 'TX',
+    zip_code: '78756',
+    notes: 'Near the school',
     created_at: "2020-04-13T03:21:34.548Z",
     updated_at: "2020-04-13T03:21:34.548Z"
-  };
+  },
+  created_at: "2020-04-13T03:21:34.548Z",
+  updated_at: "2020-04-13T03:21:34.548Z"
+};
 
-  const RESPONSE_BODY = {
+export const RESPONSE_BODY = {
+  id: Matchers.integer(1),
+  name: Matchers.like("Bedside Table Bowl"),
+  lane_count: Matchers.like(24),
+  has_restaurant: Matchers.boolean(true),
+  has_bar: Matchers.boolean(true),
+  address: Matchers.like({
     id: Matchers.integer(1),
-    name: Matchers.like("Bedside Table Bowl"),
-    lane_count: Matchers.like(24),
-    has_restaurant: Matchers.boolean(true),
-    has_bar: Matchers.boolean(true),
-    address: Matchers.like({
-      id: Matchers.integer(1),
-      street_address: Matchers.string('5700 Grover Ave'),
-      secondary_address: Matchers.string(''),
-      city: Matchers.string('Austin'),
-      state: Matchers.string('TX'),
-      zip_code: Matchers.string('78756'),
-      notes: Matchers.string('Near the school'),
-      created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
-      updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
-    }),
+    street_address: Matchers.string('5700 Grover Ave'),
+    secondary_address: Matchers.string(''),
+    city: Matchers.string('Austin'),
+    state: Matchers.string('TX'),
+    zip_code: Matchers.string('78756'),
+    notes: Matchers.string('Near the school'),
     created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
     updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
-  };
+  }),
+  created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
+  updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
+};
 
+describe("LocationService", () => {
   describe("getLocations", () => {
     beforeEach( () => {
       const interaction = {
@@ -119,5 +117,4 @@ describe("LocationService", () => {
       expect(response.status).toEqual(200);
     })
   })
-
 });

@@ -15,7 +15,7 @@ class TournamentDisplayComponent extends React.Component {
 
   render() {
     const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY;
-    const { tournament, address, loading } = this.props;
+    const { address, tournament, loading } = this.props;
 
     return (
       <div>
@@ -79,24 +79,15 @@ class TournamentDisplayComponent extends React.Component {
   }
 }
 
-function emptyObject(object) {
-  return Object.keys(object).length === 0 && object.constructor === Object
-}
-
 function mapStateToProps(state) {
-  const { tournaments, addresses, locations } = state;
+  const { tournament } = state;
 
-  const loading = emptyObject(tournaments) || tournaments.loading ||
-                    emptyObject(locations) || locations.loading ||
-                    emptyObject(addresses) || addresses.loading;
-
-  const newState = {
-      loading: loading,
-      tournament: tournaments.activeTournament,
-      location: locations.activeLocation,
-      address: addresses.activeAddress,
+  return {
+    loading: Object.keys(tournament).length === 0 || tournament?.data?.location?.address === undefined ? true : tournament.loading,
+    tournament: tournament?.data,
+    location: tournament?.data?.location,
+    address: tournament?.data?.location?.address,
   };
-  return newState;
 }
 
 export default connect(mapStateToProps)(TournamentDisplayComponent);

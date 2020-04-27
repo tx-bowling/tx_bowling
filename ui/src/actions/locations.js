@@ -1,5 +1,4 @@
 import LocationsService from './../services/locations';
-import {getAddress} from "./addresses";
 
 // GET LOCATIONS -----------------------------------------------
 export const GET_LOCATIONS_STARTED = 'GET_LOCATIONS_STARTED';
@@ -56,7 +55,7 @@ const getLocationSuccess = (locationData) => {
   return {
     type: GET_LOCATION_SUCCESS,
     payload: {
-      data: locationData.location,
+      activeLocation: locationData,
     },
   };
 };
@@ -75,7 +74,6 @@ export const getLocation = (id) => {
       .getLocation(id)
       .then(res => {
         const location = res.data.location;
-        dispatch(getAddress(location.address_id));
         dispatch(getLocationSuccess(location));
       })
       .catch(err => {
@@ -83,4 +81,3 @@ export const getLocation = (id) => {
       });
   };
 };
-

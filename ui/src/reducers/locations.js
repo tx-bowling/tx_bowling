@@ -12,12 +12,11 @@ export default function locations(state = {}, action) {
     case GET_LOCATIONS_FAILURE:
       return { ...state, loading: false, error: action.payload.errorMessage };
     case GET_LOCATION_STARTED:
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: null };
     case GET_LOCATION_SUCCESS:
-      return { ...state, activeLocation: action.payload, loading: false, error: null };
+      return { ...state, ...action.payload, loading: false, error: null };
     case GET_LOCATION_FAILURE:
       return { ...state, loading: false, error: action.payload.errorMessage };
-
     default:
       return state;
   }

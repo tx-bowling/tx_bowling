@@ -1,6 +1,10 @@
 import * as Matchers from "@pact-foundation/pact/dsl/matchers";
 
 import TournamentsService from "./tournaments";
+import {
+  EXPECTED_BODY as LOCATION_EXPECTED_BODY,
+  RESPONSE_BODY as LOCATION_RESPONSE_BODY
+} from "./locations.pact.spec";
 
 describe("TournamentsService", () => {
   const EXPECTED_BODY = {
@@ -31,7 +35,7 @@ describe("TournamentsService", () => {
     contact_id: Matchers.integer(1),
     created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
     updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
-  }
+  };
 
   describe("getTournaments", () => {
     beforeEach( () => {
@@ -102,6 +106,42 @@ describe("TournamentsService", () => {
 
       expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
       expect(response.data).toEqual({tournament: EXPECTED_BODY });
+      expect(response.status).toEqual(200);
+    })
+  });
+
+  describe("getTournamentLocation", () => {
+    beforeEach( () => {
+      const interaction = {
+        state: "there is a tournament with an id of 1",
+        uponReceiving: "a request for retrieving a tournament's location",
+        withRequest: {
+          method: "GET",
+          path: "/api/v1/tournaments/1/location.json",
+          query: {},
+          headers: {
+            Accept: "application/json",
+          },
+        },
+        willRespondWith: {
+          status: 200,
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+          },
+          body: {
+            location: LOCATION_RESPONSE_BODY,
+          },
+        },
+      };
+
+      return provider.addInteraction(interaction);
+    });
+
+    it("returns a successful body", async () => {
+      const response = await new TournamentsService().getTournamentLocation(1);
+
+      expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
+      expect(response.data).toEqual({ location: LOCATION_EXPECTED_BODY });
       expect(response.status).toEqual(200);
     })
   })

@@ -1,6 +1,7 @@
 import {
   GET_TOURNAMENT_FAILURE, GET_TOURNAMENT_STARTED, GET_TOURNAMENT_SUCCESS,
-  GET_TOURNAMENT_LOCATION_FAILURE, GET_TOURNAMENT_LOCATION_STARTED, GET_TOURNAMENT_LOCATION_SUCCESS
+  GET_TOURNAMENT_LOCATION_FAILURE, GET_TOURNAMENT_LOCATION_STARTED, GET_TOURNAMENT_LOCATION_SUCCESS,
+  GET_TOURNAMENT_SCHEDULES_FAILURE, GET_TOURNAMENT_SCHEDULES_STARTED, GET_TOURNAMENT_SCHEDULES_SUCCESS
 } from '../actions/tournament';
 
 export default function tournaments(state = {}, action) {
@@ -21,6 +22,17 @@ export default function tournaments(state = {}, action) {
         error: null
       };
     case GET_TOURNAMENT_LOCATION_FAILURE:
+      return { ...state, loading: true, error: null };
+    case GET_TOURNAMENT_SCHEDULES_STARTED:
+      return { ...state, loading: true, error: null };
+    case GET_TOURNAMENT_SCHEDULES_SUCCESS:
+      return {
+        ...state,
+        data: {...state.data, schedules: action.payload.data},
+        loading: false,
+        error: null
+      };
+    case GET_TOURNAMENT_SCHEDULES_FAILURE:
       return { ...state, loading: true, error: null };
 
     default:

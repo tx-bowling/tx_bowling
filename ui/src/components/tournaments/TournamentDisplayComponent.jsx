@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from "react-redux";
 import { Divider, Row, Col, Typography } from 'antd';
 import CurrencyFormat from 'react-currency-format';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 import LoadingComponent from "../LoadingComponent";
 
@@ -15,7 +17,7 @@ class TournamentDisplayComponent extends React.Component {
 
   render() {
     const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY;
-    const { address, tournament, loading } = this.props;
+    const { address, tournament, loading, schedules } = this.props;
 
     return (
       <div>
@@ -25,7 +27,18 @@ class TournamentDisplayComponent extends React.Component {
             <Row>
               <Col lg={11} xs={24}>
                 <Title level={3}>Dates and Times</Title>
-                <span>Schedules go here</span>
+                <ul>
+                  {schedules.map((schedule, index) => {
+                    return <li key={index}>
+                      <span>{schedule.event_id}</span>
+                      <span> | </span>
+                      <Moment tz={'America/Chicago'} format="dddd MMM D, YYYY - h:mma">
+                        {new Date(schedule.scheduled_at).toISOString()}
+                      </Moment>
+                      <span> Central</span>
+                    </li>
+                  })}
+                </ul>
                 <Title level={3}>Cost</Title>
                 Entry Fee:
                 <CurrencyFormat
@@ -83,10 +96,11 @@ function mapStateToProps(state) {
   const { tournament } = state;
 
   return {
-    loading: Object.keys(tournament).length === 0 || tournament?.data?.location?.address === undefined ? true : tournament.loading,
+    loading: Object.keys(tournament).length === 0 || tournament?.data?.location?.address === undefined  || tournament?.data?.schedules === undefined ? true : tournament.loading,
     tournament: tournament?.data,
     location: tournament?.data?.location,
     address: tournament?.data?.location?.address,
+    schedules: tournament?.data?.schedules
   };
 }
 

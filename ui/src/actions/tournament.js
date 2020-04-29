@@ -79,3 +79,43 @@ export const getTournamentLocation = (tournamentId) => {
       });
   };
 };
+
+// GET TOURNAMENT SCHEDULES -----------------------------------------------
+export const GET_TOURNAMENT_SCHEDULES_STARTED = 'GET_TOURNAMENT_SCHEDULES_STARTED';
+export const GET_TOURNAMENT_SCHEDULES_SUCCESS = 'GET_TOURNAMENT_SCHEDULES_SUCCESS';
+export const GET_TOURNAMENT_SCHEDULES_FAILURE = 'GET_TOURNAMENT_SCHEDULES_FAILURE';
+
+const getTournamentSchedulesStarted = () => ({
+  type: GET_TOURNAMENT_SCHEDULES_STARTED,
+});
+
+const getTournamentSchedulesSuccess = (schedulesData) => {
+  return {
+    type: GET_TOURNAMENT_SCHEDULES_SUCCESS,
+    payload: {
+      data: schedulesData,
+    },
+  };
+};
+
+export const getTournamentSchedulesFailure = (errorMessage) => ({
+  type: GET_TOURNAMENT_SCHEDULES_FAILURE,
+  payload: {
+    errorMessage,
+  },
+});
+
+export const getTournamentSchedules = (tournamentId) => {
+  return (dispatch) => {
+    dispatch(getTournamentSchedulesStarted());
+    new TournamentsService()
+      .getTournamentSchedules(tournamentId)
+      .then(res => {
+        const schedules = res.data.schedules;
+        dispatch(getTournamentSchedulesSuccess(schedules));
+      })
+      .catch(err => {
+        dispatch(getTournamentSchedulesFailure(err.message));
+      });
+  };
+};

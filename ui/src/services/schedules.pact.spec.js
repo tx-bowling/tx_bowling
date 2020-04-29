@@ -2,27 +2,25 @@ import * as Matchers from "@pact-foundation/pact/dsl/matchers";
 
 import SchedulesService from "./schedules";
 
+export const EXPECTED_BODY = {
+  id: 1,
+  scheduled_at: "2020-04-13T03:21:34.548Z",
+  event_id: 1,
+  tournament_id: 1,
+  created_at: "2020-04-13T03:21:34.548Z",
+  updated_at: "2020-04-13T03:21:34.548Z"
+};
+
+export const RESPONSE_BODY = {
+  id: Matchers.integer(1),
+  scheduled_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
+  event_id: Matchers.integer(1),
+  tournament_id: Matchers.integer(1),
+  created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
+  updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
+};
+
 describe("SchedulesService", () => {
-
-
-  const EXPECTED_BODY = {
-    id: 1,
-    scheduled_at: "2020-04-13T03:21:34.548Z",
-    event_id: 1,
-    tournament_id: 1,
-    created_at: "2020-04-13T03:21:34.548Z",
-    updated_at: "2020-04-13T03:21:34.548Z"
-  };
-
-  const RESPONSE_BODY = {
-    id: Matchers.integer(1),
-    scheduled_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
-    event_id: Matchers.integer(1),
-    tournament_id: Matchers.integer(1),
-    created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
-    updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
-  };
-
   describe("getSchedules", () => {
     beforeEach( () => {
       const interaction = {

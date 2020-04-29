@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import TournamentDisplayComponent from './../components/tournaments/TournamentDisplayComponent';
-import {getTournament, getTournamentLocation} from "../actions/tournament";
+import {getTournament, getTournamentLocation, getTournamentSchedules} from "../actions/tournament";
 import {setBreadcrumbs} from "../actions/breadcrumbs";
 
 class TournamentPage extends React.Component {
@@ -11,6 +11,7 @@ class TournamentPage extends React.Component {
     const id = match.params.id;
     dispatch(getTournament(id));
     dispatch(getTournamentLocation(id));
+    dispatch(getTournamentSchedules(id));
 
     const breadcrumbs = [
       {value: 'Home', url: '/', current: false},

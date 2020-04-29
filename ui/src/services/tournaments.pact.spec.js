@@ -6,6 +6,11 @@ import {
   RESPONSE_BODY as LOCATION_RESPONSE_BODY
 } from "./locations.pact.spec";
 
+import {
+  EXPECTED_BODY as SCHEDULES_EXPECTED_BODY,
+  RESPONSE_BODY as SCHEDULES_RESPONSE_BODY
+} from "./schedules.pact.spec";
+
 describe("TournamentsService", () => {
   const EXPECTED_BODY = {
     id: 1,
@@ -142,6 +147,42 @@ describe("TournamentsService", () => {
 
       expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
       expect(response.data).toEqual({ location: LOCATION_EXPECTED_BODY });
+      expect(response.status).toEqual(200);
+    })
+  })
+
+  describe("getTournamentSchedules", () => {
+    beforeEach( () => {
+      const interaction = {
+        state: "there is a tournament with an id of 1",
+        uponReceiving: "a request for retrieving a tournament's schedules",
+        withRequest: {
+          method: "GET",
+          path: "/api/v1/tournaments/1/schedules.json",
+          query: {},
+          headers: {
+            Accept: "application/json",
+          },
+        },
+        willRespondWith: {
+          status: 200,
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+          },
+          body: {
+            schedules: Matchers.eachLike(SCHEDULES_RESPONSE_BODY),
+          },
+        },
+      };
+
+      return provider.addInteraction(interaction);
+    });
+
+    it("returns a successful body", async () => {
+      const response = await new TournamentsService().getTournamentSchedules(1);
+
+      expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
+      expect(response.data).toEqual({ schedules: [SCHEDULES_EXPECTED_BODY] });
       expect(response.status).toEqual(200);
     })
   })

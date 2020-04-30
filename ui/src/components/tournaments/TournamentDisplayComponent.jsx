@@ -17,7 +17,7 @@ class TournamentDisplayComponent extends React.Component {
 
   render() {
     const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY;
-    const { address, tournament, loading, schedules } = this.props;
+    const { address, tournament, loading, schedules, events } = this.props;
 
     return (
       <div>
@@ -30,7 +30,7 @@ class TournamentDisplayComponent extends React.Component {
                 <ul>
                   {schedules.map((schedule, index) => {
                     return <li key={index}>
-                      <span>{schedule.event_id}</span>
+                      <span>{events[schedule.event_id].name}</span>
                       <span> | </span>
                       <Moment tz={'America/Chicago'} format="dddd MMM D, YYYY - h:mma">
                         {new Date(schedule.scheduled_at).toISOString()}
@@ -93,14 +93,18 @@ class TournamentDisplayComponent extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { tournament } = state;
+  const { tournament, events } = state;
 
   return {
-    loading: Object.keys(tournament).length === 0 || tournament?.data?.location?.address === undefined  || tournament?.data?.schedules === undefined ? true : tournament.loading,
+    loading: Object.keys(tournament).length === 0 ||
+      tournament?.data?.location?.address === undefined  ||
+      tournament?.data?.schedules === undefined ||
+      events?.loading  ? true : tournament.loading,
     tournament: tournament?.data,
     location: tournament?.data?.location,
     address: tournament?.data?.location?.address,
-    schedules: tournament?.data?.schedules
+    schedules: tournament?.data?.schedules,
+    events: events?.data
   };
 }
 

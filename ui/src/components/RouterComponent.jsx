@@ -1,6 +1,7 @@
 import {Redirect, Route, Switch} from "react-router-dom";
 import React from "react";
 import {ConnectedRouter} from "connected-react-router";
+import { connect } from "react-redux";
 
 import LocationsPage from "../pages/LocationsPage";
 import {history} from "../configureStore";
@@ -9,8 +10,14 @@ import TournamentPage from "../pages/TournamentPage";
 import CreateTournamentPage from "../pages/CreateTournamentPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import NewLocationsPage from "../pages/NewLocationsPage";
+import {getEvents} from "../actions/events";
 
 class RouterComponent extends React.Component {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(getEvents())
+  }
+
   render() {
     return (
       <ConnectedRouter history={history}>
@@ -28,4 +35,8 @@ class RouterComponent extends React.Component {
   }
 }
 
-export default RouterComponent;
+function mapStateToProps(_) {
+  return {}
+}
+
+export default connect(mapStateToProps)(RouterComponent);

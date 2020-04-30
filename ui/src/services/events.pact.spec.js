@@ -54,41 +54,4 @@ describe("EventsService", () => {
       expect(response.status).toEqual(200);
     })
   })
-
-  describe("getEvent", () => {
-    beforeEach( () => {
-      const interaction = {
-        state: "there is a event with an id of 1",
-        uponReceiving: "a request for retrieving a single event",
-        withRequest: {
-          method: "GET",
-          path: "/api/v1/events/1.json",
-          query: {},
-          headers: {
-            Accept: "application/json",
-          },
-        },
-        willRespondWith: {
-          status: 200,
-          headers: {
-            "Content-Type": "application/json; charset=utf-8",
-          },
-          body: {
-            event: RESPONSE_BODY,
-          },
-        },
-      };
-
-      return provider.addInteraction(interaction);
-    });
-
-    it("returns a successful body", async () => {
-      const response = await new EventsService().getEvent(1);
-
-      expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
-      expect(response.data).toEqual({ event: EXPECTED_BODY });
-      expect(response.status).toEqual(200);
-    })
-  })
-
 });

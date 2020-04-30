@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Button, Form, Input, InputNumber, Typography, Select, Checkbox, Row, Col} from 'antd';
+import {Button, Form, Input, InputNumber, Typography, Select, Checkbox, Row, Col, DatePicker, TimePicker} from 'antd';
 import {Link} from "react-router-dom";
+import { PlusCircleTwoTone } from '@ant-design/icons';
 
 import {getLocations} from "../../actions/locations";
 
@@ -32,7 +33,7 @@ class TournamentFormComponent extends React.Component {
     const { dispatch } = this.props;
     const { name, entry_cost, location_id, schedule_ids, side_pots_available, source_url, source_description, flier, contact_id, contact_methods } = this.state;
 
-    dispatch(getLocations())
+    dispatch(getLocations());
 
     this.formRef.current.setFieldsValue({
       name: name,
@@ -64,6 +65,10 @@ layout = {
     this.setState((state) => {
       return {...state, contact_methods: checkedValues};
     });
+  };
+
+   onDateChange = (date, dateString) => {
+    console.log(date, dateString);
   };
 
   locationOptions = () => {
@@ -162,6 +167,70 @@ layout = {
           <Row>
             <Col span={8} offset={4}>
               Not found? <Link to={'/locations/new'}>Add a location</Link>
+            </Col>
+          </Row>
+          <Title level={2}>Schedule</Title>
+          <div id={'schedule'}>
+            <Form.Item label="Event" style={{ marginBottom: 0 }}>
+              <Row>
+                <Col span={7}>
+                  <Form.Item
+                    placeholder="Event"
+                    name="event"
+                  >
+                    <Input/>
+                  </Form.Item>
+                </Col>
+                <Col span={8} offset={1}>
+                  <Form.Item
+                    placeholder="Date"
+                    name="date"
+                  >
+                    <DatePicker onChange={this.onDateChange} />
+                  </Form.Item>
+                </Col>
+                <Col span={7} offset={1}>
+                  <Form.Item
+                    placeholder="Time"
+                    name="time"
+                  >
+                    <TimePicker use12Hours format={'h:mm a'} minuteStep={5}/>
+                  </Form.Item>
+                </Col>
+              </Row>
+            </Form.Item>
+            <Form.Item label="Event" style={{ marginBottom: 0 }}>
+              <Row>
+                <Col span={7}>
+                  <Form.Item
+                    placeholder="Event"
+                    name="event"
+                  >
+                    <Input/>
+                  </Form.Item>
+                </Col>
+                <Col span={8} offset={1}>
+                  <Form.Item
+                    placeholder="Date"
+                    name="date"
+                  >
+                    <DatePicker onChange={this.onDateChange} />
+                  </Form.Item>
+                </Col>
+                <Col span={7} offset={1}>
+                  <Form.Item
+                    placeholder="Time"
+                    name="time"
+                  >
+                    <TimePicker use12Hours format={'h:mm a'} minuteStep={5}/>
+                  </Form.Item>
+                </Col>
+              </Row>
+            </Form.Item>
+          </div>
+          <Row>
+            <Col span={12} style={{textAlign: 'right'}}>
+              <PlusCircleTwoTone style={{ fontSize: '24px'}}/>
             </Col>
           </Row>
           <Title level={2}>Marketing</Title>

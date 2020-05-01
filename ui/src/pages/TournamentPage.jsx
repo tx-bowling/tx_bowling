@@ -14,9 +14,9 @@ class TournamentPage extends React.Component {
     dispatch(getTournamentSchedules(id));
 
     const breadcrumbs = [
-      {value: 'Home', url: '/', current: false},
-      {value: 'Tournaments', url: '/tournaments', current: false},
-      {value: id, url: `/tournaments/${id}`, current: true},
+      {value: 'Home', url: '/', active: false},
+      {value: 'Tournaments', url: '/tournaments', active: false},
+      {value: id, url: null, active: true},
     ];
     dispatch(setBreadcrumbs(breadcrumbs))
   }

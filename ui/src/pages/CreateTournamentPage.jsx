@@ -12,9 +12,9 @@ class CreateTournamentPage extends React.Component {
     const { dispatch } = this.props;
 
     const breadcrumbs = [
-      {value: 'Home', url: '/', current: false},
-      {value: 'Tournaments', url: '/tournaments', current: false},
-      {value: 'Create', url: `/tournaments/new`, current: true},
+      {value: 'Home', url: '/', active: false},
+      {value: 'Tournaments', url: '/tournaments', active: false},
+      {value: 'Create', url: null, active: true},
     ];
     dispatch(setBreadcrumbs(breadcrumbs))
   }

@@ -5,6 +5,8 @@ class NotFoundPage extends React.Component {
     return (
       <span>
         404 Not Found
+        <br />
+        <img src={'/images/lilly.png'}/>
       </span>
     )
   }

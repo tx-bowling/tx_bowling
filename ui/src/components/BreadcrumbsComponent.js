@@ -14,7 +14,7 @@ class BreadcrumbsComponent extends React.Component {
     });
 
     return (
-      <Breadcrumb>
+      <Breadcrumb style={{paddingBottom: '13px'}}>
         {breadcrumbsItems}
       </Breadcrumb>
     )

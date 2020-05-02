@@ -46,7 +46,7 @@ class TournamentDisplayComponent extends React.Component {
                   decimalScale={2}
                   displayType={'text'}
                   prefix={' $'}
-                  value={tournament.entry_cost/100}
+                  value={tournament.entry_fee/100}
                 />
                 <br />
                 Available Side-pots:

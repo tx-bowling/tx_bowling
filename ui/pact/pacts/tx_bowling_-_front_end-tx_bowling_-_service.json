@@ -7,6 +7,248 @@
   },
   "interactions": [
     {
+      "description": "a request for retrieving addresses",
+      "providerState": "there are multiple addresses",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/addresses.json",
+        "query": "",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "addresses": [
+            {
+              "id": 1,
+              "street_address": "5700 Grover Ave",
+              "secondary_address": "",
+              "city": "Austin",
+              "state": "TX",
+              "zip_code": "78756",
+              "notes": "Near the school",
+              "created_at": "2020-04-13T03:21:34.548Z",
+              "updated_at": "2020-04-13T03:21:34.548Z"
+            }
+          ]
+        },
+        "matchingRules": {
+          "$.body.addresses": {
+            "min": 1
+          },
+          "$.body.addresses[*].*": {
+            "match": "type"
+          },
+          "$.body.addresses[*].id": {
+            "match": "type"
+          },
+          "$.body.addresses[*].street_address": {
+            "match": "type"
+          },
+          "$.body.addresses[*].secondary_address": {
+            "match": "type"
+          },
+          "$.body.addresses[*].city": {
+            "match": "type"
+          },
+          "$.body.addresses[*].state": {
+            "match": "type"
+          },
+          "$.body.addresses[*].zip_code": {
+            "match": "type"
+          },
+          "$.body.addresses[*].notes": {
+            "match": "type"
+          },
+          "$.body.addresses[*].created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.addresses[*].updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          }
+        }
+      }
+    },
+    {
+      "description": "a request for retrieving a single address",
+      "providerState": "there is an address with an id of 1",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/addresses/1.json",
+        "query": "",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "address": {
+            "id": 1,
+            "street_address": "5700 Grover Ave",
+            "secondary_address": "",
+            "city": "Austin",
+            "state": "TX",
+            "zip_code": "78756",
+            "notes": "Near the school",
+            "created_at": "2020-04-13T03:21:34.548Z",
+            "updated_at": "2020-04-13T03:21:34.548Z"
+          }
+        },
+        "matchingRules": {
+          "$.body.address.id": {
+            "match": "type"
+          },
+          "$.body.address.street_address": {
+            "match": "type"
+          },
+          "$.body.address.secondary_address": {
+            "match": "type"
+          },
+          "$.body.address.city": {
+            "match": "type"
+          },
+          "$.body.address.state": {
+            "match": "type"
+          },
+          "$.body.address.zip_code": {
+            "match": "type"
+          },
+          "$.body.address.notes": {
+            "match": "type"
+          },
+          "$.body.address.created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.address.updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          }
+        }
+      }
+    },
+    {
+      "description": "a request for retrieving schedules",
+      "providerState": "there are multiple schedules",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/schedules.json",
+        "query": "",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "schedules": [
+            {
+              "id": 1,
+              "scheduled_at": "2020-04-13T03:21:34.548Z",
+              "event_id": 1,
+              "tournament_id": 1,
+              "created_at": "2020-04-13T03:21:34.548Z",
+              "updated_at": "2020-04-13T03:21:34.548Z"
+            }
+          ]
+        },
+        "matchingRules": {
+          "$.body.schedules": {
+            "min": 1
+          },
+          "$.body.schedules[*].*": {
+            "match": "type"
+          },
+          "$.body.schedules[*].id": {
+            "match": "type"
+          },
+          "$.body.schedules[*].scheduled_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.schedules[*].event_id": {
+            "match": "type"
+          },
+          "$.body.schedules[*].tournament_id": {
+            "match": "type"
+          },
+          "$.body.schedules[*].created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.schedules[*].updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          }
+        }
+      }
+    },
+    {
+      "description": "a request for retrieving a single schedule",
+      "providerState": "there is a schedule with an id of 1",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/schedules/1.json",
+        "query": "",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "schedule": {
+            "id": 1,
+            "scheduled_at": "2020-04-13T03:21:34.548Z",
+            "event_id": 1,
+            "tournament_id": 1,
+            "created_at": "2020-04-13T03:21:34.548Z",
+            "updated_at": "2020-04-13T03:21:34.548Z"
+          }
+        },
+        "matchingRules": {
+          "$.body.schedule.id": {
+            "match": "type"
+          },
+          "$.body.schedule.scheduled_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.schedule.event_id": {
+            "match": "type"
+          },
+          "$.body.schedule.tournament_id": {
+            "match": "type"
+          },
+          "$.body.schedule.created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.schedule.updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          }
+        }
+      }
+    },
+    {
       "description": "a request for retrieving locations",
       "providerState": "there are multiple locations",
       "request": {
@@ -209,116 +451,6 @@
       }
     },
     {
-      "description": "a request for retrieving schedules",
-      "providerState": "there are multiple schedules",
-      "request": {
-        "method": "GET",
-        "path": "/api/v1/schedules.json",
-        "query": "",
-        "headers": {
-          "Accept": "application/json"
-        }
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "schedules": [
-            {
-              "id": 1,
-              "scheduled_at": "2020-04-13T03:21:34.548Z",
-              "event_id": 1,
-              "tournament_id": 1,
-              "created_at": "2020-04-13T03:21:34.548Z",
-              "updated_at": "2020-04-13T03:21:34.548Z"
-            }
-          ]
-        },
-        "matchingRules": {
-          "$.body.schedules": {
-            "min": 1
-          },
-          "$.body.schedules[*].*": {
-            "match": "type"
-          },
-          "$.body.schedules[*].id": {
-            "match": "type"
-          },
-          "$.body.schedules[*].scheduled_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.schedules[*].event_id": {
-            "match": "type"
-          },
-          "$.body.schedules[*].tournament_id": {
-            "match": "type"
-          },
-          "$.body.schedules[*].created_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.schedules[*].updated_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          }
-        }
-      }
-    },
-    {
-      "description": "a request for retrieving a single schedule",
-      "providerState": "there is a schedule with an id of 1",
-      "request": {
-        "method": "GET",
-        "path": "/api/v1/schedules/1.json",
-        "query": "",
-        "headers": {
-          "Accept": "application/json"
-        }
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "schedule": {
-            "id": 1,
-            "scheduled_at": "2020-04-13T03:21:34.548Z",
-            "event_id": 1,
-            "tournament_id": 1,
-            "created_at": "2020-04-13T03:21:34.548Z",
-            "updated_at": "2020-04-13T03:21:34.548Z"
-          }
-        },
-        "matchingRules": {
-          "$.body.schedule.id": {
-            "match": "type"
-          },
-          "$.body.schedule.scheduled_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.schedule.event_id": {
-            "match": "type"
-          },
-          "$.body.schedule.tournament_id": {
-            "match": "type"
-          },
-          "$.body.schedule.created_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.schedule.updated_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          }
-        }
-      }
-    },
-    {
       "description": "a request for retrieving tournaments",
       "providerState": "there are multiple tournaments",
       "request": {
@@ -343,7 +475,7 @@
               "schedule_ids": [
                 1
               ],
-              "entry_cost": 5050,
+              "entry_fee": 5050,
               "side_pots_available": [
                 "brackets"
               ],
@@ -381,7 +513,7 @@
           "$.body.tournaments[*].schedule_ids[*]": {
             "match": "type"
           },
-          "$.body.tournaments[*].entry_cost": {
+          "$.body.tournaments[*].entry_fee": {
             "match": "type"
           },
           "$.body.tournaments[*].side_pots_available": {
@@ -440,7 +572,7 @@
             "schedule_ids": [
               1
             ],
-            "entry_cost": 5050,
+            "entry_fee": 5050,
             "side_pots_available": [
               "brackets"
             ],
@@ -471,7 +603,7 @@
           "$.body.tournament.schedule_ids[*]": {
             "match": "type"
           },
-          "$.body.tournament.entry_cost": {
+          "$.body.tournament.entry_fee": {
             "match": "type"
           },
           "$.body.tournament.side_pots_available": {
@@ -706,138 +838,6 @@
             "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
           },
           "$.body.events[*].updated_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          }
-        }
-      }
-    },
-    {
-      "description": "a request for retrieving addresses",
-      "providerState": "there are multiple addresses",
-      "request": {
-        "method": "GET",
-        "path": "/api/v1/addresses.json",
-        "query": "",
-        "headers": {
-          "Accept": "application/json"
-        }
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "addresses": [
-            {
-              "id": 1,
-              "street_address": "5700 Grover Ave",
-              "secondary_address": "",
-              "city": "Austin",
-              "state": "TX",
-              "zip_code": "78756",
-              "notes": "Near the school",
-              "created_at": "2020-04-13T03:21:34.548Z",
-              "updated_at": "2020-04-13T03:21:34.548Z"
-            }
-          ]
-        },
-        "matchingRules": {
-          "$.body.addresses": {
-            "min": 1
-          },
-          "$.body.addresses[*].*": {
-            "match": "type"
-          },
-          "$.body.addresses[*].id": {
-            "match": "type"
-          },
-          "$.body.addresses[*].street_address": {
-            "match": "type"
-          },
-          "$.body.addresses[*].secondary_address": {
-            "match": "type"
-          },
-          "$.body.addresses[*].city": {
-            "match": "type"
-          },
-          "$.body.addresses[*].state": {
-            "match": "type"
-          },
-          "$.body.addresses[*].zip_code": {
-            "match": "type"
-          },
-          "$.body.addresses[*].notes": {
-            "match": "type"
-          },
-          "$.body.addresses[*].created_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.addresses[*].updated_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          }
-        }
-      }
-    },
-    {
-      "description": "a request for retrieving a single address",
-      "providerState": "there is an address with an id of 1",
-      "request": {
-        "method": "GET",
-        "path": "/api/v1/addresses/1.json",
-        "query": "",
-        "headers": {
-          "Accept": "application/json"
-        }
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "address": {
-            "id": 1,
-            "street_address": "5700 Grover Ave",
-            "secondary_address": "",
-            "city": "Austin",
-            "state": "TX",
-            "zip_code": "78756",
-            "notes": "Near the school",
-            "created_at": "2020-04-13T03:21:34.548Z",
-            "updated_at": "2020-04-13T03:21:34.548Z"
-          }
-        },
-        "matchingRules": {
-          "$.body.address.id": {
-            "match": "type"
-          },
-          "$.body.address.street_address": {
-            "match": "type"
-          },
-          "$.body.address.secondary_address": {
-            "match": "type"
-          },
-          "$.body.address.city": {
-            "match": "type"
-          },
-          "$.body.address.state": {
-            "match": "type"
-          },
-          "$.body.address.zip_code": {
-            "match": "type"
-          },
-          "$.body.address.notes": {
-            "match": "type"
-          },
-          "$.body.address.created_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.address.updated_at": {
             "match": "regex",
             "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
           }

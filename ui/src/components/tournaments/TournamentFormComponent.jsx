@@ -1,14 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Button, Input, InputNumber, Typography, Checkbox, DatePicker, TimePicker} from 'antd';
-import { Form, InputGroup, Row, Col } from 'react-bootstrap'
-
+import { Button, Form, InputGroup, Row, Col } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {Link} from "react-router-dom";
-import { PlusCircleTwoTone } from '@ant-design/icons';
 
 import {getLocations} from "../../actions/locations";
-
-const { Title } = Typography;
 
 class TournamentFormComponent extends React.Component {
   constructor(props) {
@@ -23,7 +19,7 @@ class TournamentFormComponent extends React.Component {
       source_description: 'USBC Open',
       flier: 'http://www.fillmurray.com/850/1100',
       contact_id: 1,
-      contact_methods: []
+      contactMethods: []
     };
   }
 
@@ -39,13 +35,20 @@ class TournamentFormComponent extends React.Component {
 
 
   handleInputChange = (name, event) => {
+    debugger
     this.setState({...this.state, [name]: event.target.value});
   };
 
-  checkboxChange = (checkedValues) => {
-    this.setState((state) => {
-      return {...state, contact_methods: checkedValues};
-    });
+  handleContactMethodChange = (name, event) => {
+    let methods = this.state.contactMethods;
+    if(event.target.checked) {
+      methods.push(name)
+    } else {
+      methods = methods.filter(item => item !== name )
+    }
+
+    console.log(methods)
+    this.setState({...this.state, contactMethods: methods})
   };
 
    onDateChange = (date, dateString) => {
@@ -66,20 +69,30 @@ class TournamentFormComponent extends React.Component {
     });
   };
 
-
+  blankEvent = () => {
+    return (
+      <div>
+        <Form.Label column sm="2">
+          Event
+        </Form.Label>
+        <Form.Row>
+          <Col>
+          <Form.Control as="select" placeholder="Event" />
+            </Col>
+          <Col>
+            <Form.Control placeholder="Date" />
+          </Col>
+          <Col>
+            <Form.Control placeholder="Time" />
+          </Col>
+        </Form.Row>
+      </div>
+    )
+  };
 
   render() {
 
-    const { contact_methods } = this.state;
-    const email = '';
-    const phone = '';
-    const other = '';
-    const contactOptions = [
-      { label: 'Phone', value: 'phone' },
-      { label: 'Email', value: 'email' },
-      { label: 'Other', value: 'other' },
-    ];
-
+    const { contactMethods } = this.state;
 
     const sidePotOptions = [
       <option key='none'>None</option>,
@@ -121,7 +134,7 @@ class TournamentFormComponent extends React.Component {
 
             <h2>Location</h2>
             <Form.Group controlId="location">
-              <Form.Label>Location</Form.Label>
+              <Form.Label>Alley</Form.Label>
               <Form.Control as="select">
                 {this.locationOptions()}
               </Form.Control>
@@ -132,147 +145,65 @@ class TournamentFormComponent extends React.Component {
 
             <h2>Schedule</h2>
             <div id={'schedules'}>
-            {/*  <Form.Item label="Event" style={{ marginBottom: 0 }}>*/}
-            {/*    <Row>*/}
-            {/*      <Col span={7}>*/}
-            {/*        <Form.Item*/}
-            {/*          placeholder="Event"*/}
-            {/*          name="event"*/}
-            {/*        >*/}
-            {/*          <Input/>*/}
-            {/*        </Form.Item>*/}
-            {/*      </Col>*/}
-            {/*      <Col span={8} offset={1}>*/}
-            {/*        <Form.Item*/}
-            {/*          placeholder="Date"*/}
-            {/*          name="date"*/}
-            {/*        >*/}
-            {/*          <DatePicker onChange={this.onDateChange} />*/}
-            {/*        </Form.Item>*/}
-            {/*      </Col>*/}
-            {/*      <Col span={7} offset={1}>*/}
-            {/*        <Form.Item*/}
-            {/*          placeholder="Time"*/}
-            {/*          name="time"*/}
-            {/*        >*/}
-            {/*          <TimePicker use12Hours format={'h:mm a'} minuteStep={5}/>*/}
-            {/*        </Form.Item>*/}
-            {/*      </Col>*/}
-            {/*    </Row>*/}
-            {/*  </Form.Item>*/}
-            {/*  <Form.Item label="Event" style={{ marginBottom: 0 }}>*/}
-            {/*    <Row>*/}
-            {/*      <Col span={7}>*/}
-            {/*        <Form.Item*/}
-            {/*          placeholder="Event"*/}
-            {/*          name="event"*/}
-            {/*        >*/}
-            {/*          <Input/>*/}
-            {/*        </Form.Item>*/}
-            {/*      </Col>*/}
-            {/*      <Col span={8} offset={1}>*/}
-            {/*        <Form.Item*/}
-            {/*          placeholder="Date"*/}
-            {/*          name="date"*/}
-            {/*        >*/}
-            {/*          <DatePicker onChange={this.onDateChange} />*/}
-            {/*        </Form.Item>*/}
-            {/*      </Col>*/}
-            {/*      <Col span={7} offset={1}>*/}
-            {/*        <Form.Item*/}
-            {/*          placeholder="Time"*/}
-            {/*          name="time"*/}
-            {/*        >*/}
-            {/*          <TimePicker use12Hours format={'h:mm a'} minuteStep={5}/>*/}
-            {/*        </Form.Item>*/}
-            {/*      </Col>*/}
-            {/*    </Row>*/}
-            {/*  </Form.Item>*/}
+              {this.blankEvent()}
+              {this.blankEvent()}
             </div>
-            {/*<Row>*/}
-            {/*  <Col span={12} style={{textAlign: 'right'}}>*/}
-            {/*    <PlusCircleTwoTone style={{ fontSize: '24px'}}/>*/}
-            {/*  </Col>*/}
-            {/*</Row>*/}
-            <h2>Marketing</h2>
-            {/*<Form.Item*/}
-            {/*  label="Source description"*/}
-            {/*  name="source_description"*/}
-            {/*  rules={[{ required: true, message: "Please input the tournament's source description." }]}*/}
-            {/*>*/}
-            {/*  <Input*/}
-            {/*    onChange={this.handleInputChange.bind(this, 'source_description')}*/}
-            {/*  />*/}
-            {/*</Form.Item>*/}
-            {/*<Form.Item*/}
-            {/*  label="Source url"*/}
-            {/*  name="source_url"*/}
-            {/*  rules={[{ required: true, message: "Please input the tournament's source_url." }]}*/}
-            {/*>*/}
-            {/*  <Input*/}
-            {/*    onChange={this.handleInputChange.bind(this, 'source_url')}*/}
-            {/*  />*/}
-            {/*</Form.Item>*/}
+            <div>
+              <FontAwesomeIcon icon="plus-circle" />
+            </div>
 
             <h2>Contact Information</h2>
-            {/*<Form.Item*/}
-            {/*  label="Host"*/}
-            {/*  name="host"*/}
-            {/*  rules={[{ required: true, message: "Please input the tournament's host." }]}*/}
-            {/*>*/}
-            {/*  <Input*/}
-            {/*    onChange={this.handleInputChange.bind(this, 'host')}*/}
-            {/*  />*/}
-            {/*</Form.Item>*/}
-            {/*<Form.Item*/}
-            {/*  label="Preferred contact methods"*/}
-            {/*  name="contact_methods"*/}
-            {/*  rules={[{ required: true, message: "Please input the tournament's preferred contact method." }]}*/}
-            {/*>*/}
-            {/*  <Checkbox.Group options={contactOptions} defaultValue={[]} onChange={this.checkboxChange} />*/}
-            {/*</Form.Item>*/}
-            {/*{contact_methods.includes('phone') &&*/}
-            {/*  <Form.Item*/}
-            {/*    label="Phone"*/}
-            {/*    name="phone"*/}
-            {/*    rules={[{ required: true, message: "Please input the tournament's contact phone." }]}*/}
-            {/*  >*/}
-            {/*    <Input*/}
-            {/*      defaultValue={phone}*/}
-            {/*      value={phone}*/}
-            {/*      onChange={this.handleInputChange.bind(this, 'phone')}*/}
-            {/*    />*/}
-            {/*  </Form.Item>*/}
-            {/*}*/}
-            {/*{contact_methods.includes('email') &&*/}
-            {/*<Form.Item*/}
-            {/*  label="Email"*/}
-            {/*  name="email"*/}
-            {/*  rules={[{required: true, message: "Please input the tournament's contact email."}]}*/}
-            {/*>*/}
-            {/*  <Input*/}
-            {/*    defaultValue={email}*/}
-            {/*    value={email}*/}
-            {/*    onChange={this.handleInputChange.bind(this, 'email')}*/}
-            {/*  />*/}
-            {/*</Form.Item>*/}
-            {/*}*/}
-            {/*{contact_methods.includes('other') &&*/}
-            {/*  <Form.Item*/}
-            {/*    label="Other"*/}
-            {/*    name="other"*/}
-            {/*    rules={[{ required: true, message: "Please input the tournament's contact other method." }]}*/}
-            {/*  >*/}
-            {/*    <Input*/}
-            {/*      defaultValue={other}*/}
-            {/*      value={other}*/}
-            {/*      onChange={this.handleInputChange.bind(this, 'other')}*/}
-            {/*    />*/}
-            {/*  </Form.Item>*/}
-            {/*}*/}
-            {/*<Form.Item {...this.nonLabelLayout}>*/}
-            {/*  <Button type="primary" htmlType="submit">Submit</Button>*/}
-            {/*</Form.Item>*/}
+            <Form.Group controlId="host">
+              <Form.Label>Host</Form.Label>
+              <Form.Control type="text" onChange={this.handleInputChange.bind(this, 'host')} />
+            </Form.Group>
+
+            <div>
+              <Form.Label>Preferred Contact Method</Form.Label>
+              <Form.Row>
+                <Col>
+                 <Form.Check inline label="Phone" type="checkbox" id="contact-phone" onChange={this.handleContactMethodChange.bind(this, 'phone')}/>
+                </Col>
+                <Col>
+                 <Form.Check inline label="Email" type="checkbox" id="contact-email" onChange={this.handleContactMethodChange.bind(this, 'email')}/>
+                </Col>
+                <Col>
+                  <Form.Check inline label="Other" type="checkbox" id="contact-other" onChange={this.handleContactMethodChange.bind(this, 'other')}/>
+                </Col>
+              </Form.Row>
+              {contactMethods.includes('phone') &&
+                <Form.Group controlId="phone">
+                  <Form.Label>Phone</Form.Label>
+                  <Form.Control type="text" onChange={this.handleInputChange.bind(this, 'contactPhone')}/>
+                </Form.Group>
+              }
+              {contactMethods.includes('email') &&
+                <Form.Group controlId="email">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control type="text" onChange={this.handleInputChange.bind(this, 'contactEmail')}/>
+                </Form.Group>
+              }
+              {contactMethods.includes('other') &&
+                <Form.Group controlId="other">
+                  <Form.Label>Other</Form.Label>
+                  <Form.Control type="text" onChange={this.handleInputChange.bind(this, 'contactOther')}/>
+                </Form.Group>
+              }
+            </div>
+
+
+            <h2>Marketing</h2>
+            <Form.Group controlId="source_description">
+              <Form.Label>Source Description</Form.Label>
+              <Form.Control type="text" onChange={this.handleInputChange.bind(this, 'source_description')}/>
+            </Form.Group>
+            <Form.Group controlId="source_url">
+              <Form.Label>Source Url</Form.Label>
+              <Form.Control type="text" onChange={this.handleInputChange.bind(this, 'source_url')}/>
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
           </Form>
         </Col>
       </Row>

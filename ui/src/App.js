@@ -1,6 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Container } from 'react-bootstrap';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
 import './App.css';
 
@@ -8,6 +10,8 @@ import configureStore from './configureStore';
 import RouterComponent from "./components/RouterComponent";
 import BreadcrumbsComponent from "./components/BreadcrumbsComponent";
 import NavbarComponent from "./components/NavbarComponent";
+
+library.add(faPlusCircle);
 
 
 function App() {

@@ -24,12 +24,15 @@ Pact.provider_states_for "TX Bowling - Front End" do
 
   provider_state "there is an address with an id of 1" do
     set_up do
-      address = FactoryBot.create(:address, :with_secondary_address)
-      address.id = 1
-      address.save
+      begin
+        Address.find(1)
+      rescue
+        address = FactoryBot.create(:address)
+        address.id = 1
+        address.save!
+      end
     end
   end
-
 
   provider_state "there are multiple tournaments" do
     set_up do
@@ -39,10 +42,33 @@ Pact.provider_states_for "TX Bowling - Front End" do
 
   provider_state "there is a tournament with an id of 1" do
     set_up do
-      tournament = FactoryBot.create(:tournament)
-      tournament.id = 1
-      tournament.save!
+      begin
+        tournament = Tournament.find(1)
+        tournament if tournament
+      rescue
+        tournament = FactoryBot.create(:tournament)
+        tournament.id = 1
+        tournament.save!
+      end
       FactoryBot.create_list(:schedule, 2, tournament: tournament)
+    end
+  end
+
+  provider_state "there are multiple schedules" do
+    set_up do
+      # Your set up code goes here
+    end
+  end
+
+  provider_state "there is a schedule with an id of 1" do
+    set_up do
+      # Your set up code goes here
+    end
+  end
+
+  provider_state "there are multiple events" do
+    set_up do
+      FactoryBot.create_list(:event, 2)
     end
   end
 end

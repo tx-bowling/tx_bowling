@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_15_012920) do
+ActiveRecord::Schema.define(version: 2020_05_04_043244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,12 @@ ActiveRecord::Schema.define(version: 2020_04_15_012920) do
     t.text "notes"
     t.string "latitude", default: "", null: false
     t.string "longitude", default: "", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -52,13 +58,14 @@ ActiveRecord::Schema.define(version: 2020_04_15_012920) do
   create_table "tournaments", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.bigint "location_id", null: false
-    t.integer "entry_cost", default: 0, null: false
+    t.integer "entry_fee", default: 0, null: false
     t.string "side_pots_available"
-    t.string "link_to_source"
+    t.string "source_url"
     t.string "flier"
     t.bigint "contact_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "source_description"
     t.index ["contact_id"], name: "index_tournaments_on_contact_id"
     t.index ["location_id"], name: "index_tournaments_on_location_id"
   end

@@ -6,16 +6,12 @@ describe("EventsService", () => {
 
   const EXPECTED_BODY = {
     id: 1,
-    name: 'Singles',
-    created_at: "2020-04-13T03:21:34.548Z",
-    updated_at: "2020-04-13T03:21:34.548Z"
+    name: 'Singles'
   };
 
   const RESPONSE_BODY = {
     id: Matchers.integer(1),
-    name: Matchers.string('Singles'),
-    created_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z"),
-    updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
+    name: Matchers.string('Singles')
   };
 
   describe("getEvents", () => {

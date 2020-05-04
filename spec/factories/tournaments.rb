@@ -2,9 +2,10 @@ FactoryBot.define do
   factory :tournament do
     name { "MyString" }
     location
-    entry_cost { 1 }
+    entry_fee { 1 }
     side_pots_available { "#{Faker::Company.buzzword}|#{Faker::Company.name}" }
-    link_to_source { "MyString" }
+    source_url { "MyString" }
+    source_description { "MyString" }
     flier { "MyString" }
     contact { FactoryBot.create(:user) }
 

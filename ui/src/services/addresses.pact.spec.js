@@ -29,42 +29,42 @@ describe("AddressesService", () => {
     updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
   };
 
-  describe("getAddresses", () => {
-    beforeEach( () => {
-      const interaction = {
-        state: "there are multiple addresses",
-        uponReceiving: "a request for retrieving addresses",
-        withRequest: {
-          method: "GET",
-          path: "/api/v1/addresses.json",
-          query: {},
-          headers: {
-            Accept: "application/json",
-          },
-        },
-        willRespondWith: {
-          status: 200,
-          headers: {
-            "Content-Type": "application/json; charset=utf-8",
-          },
-          body: {
-            addresses:
-              Matchers.eachLike(RESPONSE_BODY),
-          },
-        },
-      };
-
-      return provider.addInteraction(interaction);
-    });
-
-    it("returns a successful body", async () => {
-      const response = await new AddressesService().getAddresses();
-
-      expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
-      expect(response.data).toEqual({ addresses: [EXPECTED_BODY] });
-      expect(response.status).toEqual(200);
-    })
-  });
+  // describe("getAddresses", () => {
+  //   beforeEach( () => {
+  //     const interaction = {
+  //       state: "there are multiple addresses",
+  //       uponReceiving: "a request for retrieving addresses",
+  //       withRequest: {
+  //         method: "GET",
+  //         path: "/api/v1/addresses.json",
+  //         query: {},
+  //         headers: {
+  //           Accept: "application/json",
+  //         },
+  //       },
+  //       willRespondWith: {
+  //         status: 200,
+  //         headers: {
+  //           "Content-Type": "application/json; charset=utf-8",
+  //         },
+  //         body: {
+  //           addresses:
+  //             Matchers.eachLike(RESPONSE_BODY),
+  //         },
+  //       },
+  //     };
+  //
+  //     return provider.addInteraction(interaction);
+  //   });
+  //
+  //   it("returns a successful body", async () => {
+  //     const response = await new AddressesService().getAddresses();
+  //
+  //     expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
+  //     expect(response.data).toEqual({ addresses: [EXPECTED_BODY] });
+  //     expect(response.status).toEqual(200);
+  //   })
+  // });
 
   describe("getAddress", () => {
     beforeEach( () => {

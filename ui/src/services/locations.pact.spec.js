@@ -45,42 +45,42 @@ export const RESPONSE_BODY = {
 };
 
 describe("LocationService", () => {
-  describe("getLocations", () => {
-    beforeEach( () => {
-      const interaction = {
-        state: "there are multiple locations",
-        uponReceiving: "a request for retrieving locations",
-        withRequest: {
-          method: "GET",
-          path: "/api/v1/locations.json",
-          query: {},
-          headers: {
-            Accept: "application/json",
-          },
-        },
-        willRespondWith: {
-          status: 200,
-          headers: {
-            "Content-Type": "application/json; charset=utf-8",
-          },
-          body: {
-            locations:
-              Matchers.eachLike(RESPONSE_BODY),
-          },
-        },
-      };
-
-      return provider.addInteraction(interaction);
-    });
-
-    it("returns a successful body", async () => {
-      const response = await new LocationsService().getLocations();
-
-      expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
-      expect(response.data).toEqual({ locations: [EXPECTED_BODY] });
-      expect(response.status).toEqual(200);
-    })
-  })
+  // describe("getLocations", () => {
+  //   beforeEach( () => {
+  //     const interaction = {
+  //       state: "there are multiple locations",
+  //       uponReceiving: "a request for retrieving locations",
+  //       withRequest: {
+  //         method: "GET",
+  //         path: "/api/v1/locations.json",
+  //         query: {},
+  //         headers: {
+  //           Accept: "application/json",
+  //         },
+  //       },
+  //       willRespondWith: {
+  //         status: 200,
+  //         headers: {
+  //           "Content-Type": "application/json; charset=utf-8",
+  //         },
+  //         body: {
+  //           locations:
+  //             Matchers.eachLike(RESPONSE_BODY),
+  //         },
+  //       },
+  //     };
+  //
+  //     return provider.addInteraction(interaction);
+  //   });
+  //
+  //   it("returns a successful body", async () => {
+  //     const response = await new LocationsService().getLocations();
+  //
+  //     expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
+  //     expect(response.data).toEqual({ locations: [EXPECTED_BODY] });
+  //     expect(response.status).toEqual(200);
+  //   })
+  // })
 
   describe("getLocation", () => {
     beforeEach( () => {

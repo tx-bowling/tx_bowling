@@ -7,11 +7,11 @@
   },
   "interactions": [
     {
-      "description": "a request for retrieving addresses",
-      "providerState": "there are multiple addresses",
+      "description": "a request for retrieving a single location",
+      "providerState": "there is a location with an id of 1",
       "request": {
         "method": "GET",
-        "path": "/api/v1/addresses.json",
+        "path": "/api/v1/locations/1.json",
         "query": "",
         "headers": {
           "Accept": "application/json"
@@ -23,8 +23,13 @@
           "Content-Type": "application/json; charset=utf-8"
         },
         "body": {
-          "addresses": [
-            {
+          "location": {
+            "id": 1,
+            "name": "Bedside Table Bowl",
+            "lane_count": 24,
+            "has_restaurant": true,
+            "has_bar": true,
+            "address": {
               "id": 1,
               "street_address": "5700 Grover Ave",
               "secondary_address": "",
@@ -34,104 +39,64 @@
               "notes": "Near the school",
               "created_at": "2020-04-13T03:21:34.548Z",
               "updated_at": "2020-04-13T03:21:34.548Z"
-            }
-          ]
-        },
-        "matchingRules": {
-          "$.body.addresses": {
-            "min": 1
-          },
-          "$.body.addresses[*].*": {
-            "match": "type"
-          },
-          "$.body.addresses[*].id": {
-            "match": "type"
-          },
-          "$.body.addresses[*].street_address": {
-            "match": "type"
-          },
-          "$.body.addresses[*].secondary_address": {
-            "match": "type"
-          },
-          "$.body.addresses[*].city": {
-            "match": "type"
-          },
-          "$.body.addresses[*].state": {
-            "match": "type"
-          },
-          "$.body.addresses[*].zip_code": {
-            "match": "type"
-          },
-          "$.body.addresses[*].notes": {
-            "match": "type"
-          },
-          "$.body.addresses[*].created_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.addresses[*].updated_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          }
-        }
-      }
-    },
-    {
-      "description": "a request for retrieving a single address",
-      "providerState": "there is an address with an id of 1",
-      "request": {
-        "method": "GET",
-        "path": "/api/v1/addresses/1.json",
-        "query": "",
-        "headers": {
-          "Accept": "application/json"
-        }
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "address": {
-            "id": 1,
-            "street_address": "5700 Grover Ave",
-            "secondary_address": "",
-            "city": "Austin",
-            "state": "TX",
-            "zip_code": "78756",
-            "notes": "Near the school",
+            },
             "created_at": "2020-04-13T03:21:34.548Z",
             "updated_at": "2020-04-13T03:21:34.548Z"
           }
         },
         "matchingRules": {
-          "$.body.address.id": {
+          "$.body.location.id": {
             "match": "type"
           },
-          "$.body.address.street_address": {
+          "$.body.location.name": {
             "match": "type"
           },
-          "$.body.address.secondary_address": {
+          "$.body.location.lane_count": {
             "match": "type"
           },
-          "$.body.address.city": {
+          "$.body.location.has_restaurant": {
             "match": "type"
           },
-          "$.body.address.state": {
+          "$.body.location.has_bar": {
             "match": "type"
           },
-          "$.body.address.zip_code": {
+          "$.body.location.address": {
             "match": "type"
           },
-          "$.body.address.notes": {
+          "$.body.location.address.id": {
             "match": "type"
           },
-          "$.body.address.created_at": {
+          "$.body.location.address.street_address": {
+            "match": "type"
+          },
+          "$.body.location.address.secondary_address": {
+            "match": "type"
+          },
+          "$.body.location.address.city": {
+            "match": "type"
+          },
+          "$.body.location.address.state": {
+            "match": "type"
+          },
+          "$.body.location.address.zip_code": {
+            "match": "type"
+          },
+          "$.body.location.address.notes": {
+            "match": "type"
+          },
+          "$.body.location.address.created_at": {
             "match": "regex",
             "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
           },
-          "$.body.address.updated_at": {
+          "$.body.location.address.updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.location.created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.location.updated_at": {
             "match": "regex",
             "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
           }
@@ -249,208 +214,6 @@
       }
     },
     {
-      "description": "a request for retrieving locations",
-      "providerState": "there are multiple locations",
-      "request": {
-        "method": "GET",
-        "path": "/api/v1/locations.json",
-        "query": "",
-        "headers": {
-          "Accept": "application/json"
-        }
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "locations": [
-            {
-              "id": 1,
-              "name": "Bedside Table Bowl",
-              "lane_count": 24,
-              "has_restaurant": true,
-              "has_bar": true,
-              "address": {
-                "id": 1,
-                "street_address": "5700 Grover Ave",
-                "secondary_address": "",
-                "city": "Austin",
-                "state": "TX",
-                "zip_code": "78756",
-                "notes": "Near the school",
-                "created_at": "2020-04-13T03:21:34.548Z",
-                "updated_at": "2020-04-13T03:21:34.548Z"
-              },
-              "created_at": "2020-04-13T03:21:34.548Z",
-              "updated_at": "2020-04-13T03:21:34.548Z"
-            }
-          ]
-        },
-        "matchingRules": {
-          "$.body.locations": {
-            "min": 1
-          },
-          "$.body.locations[*].*": {
-            "match": "type"
-          },
-          "$.body.locations[*].id": {
-            "match": "type"
-          },
-          "$.body.locations[*].name": {
-            "match": "type"
-          },
-          "$.body.locations[*].lane_count": {
-            "match": "type"
-          },
-          "$.body.locations[*].has_restaurant": {
-            "match": "type"
-          },
-          "$.body.locations[*].has_bar": {
-            "match": "type"
-          },
-          "$.body.locations[*].address": {
-            "match": "type"
-          },
-          "$.body.locations[*].address.id": {
-            "match": "type"
-          },
-          "$.body.locations[*].address.street_address": {
-            "match": "type"
-          },
-          "$.body.locations[*].address.secondary_address": {
-            "match": "type"
-          },
-          "$.body.locations[*].address.city": {
-            "match": "type"
-          },
-          "$.body.locations[*].address.state": {
-            "match": "type"
-          },
-          "$.body.locations[*].address.zip_code": {
-            "match": "type"
-          },
-          "$.body.locations[*].address.notes": {
-            "match": "type"
-          },
-          "$.body.locations[*].address.created_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.locations[*].address.updated_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.locations[*].created_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.locations[*].updated_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          }
-        }
-      }
-    },
-    {
-      "description": "a request for retrieving a single location",
-      "providerState": "there is a location with an id of 1",
-      "request": {
-        "method": "GET",
-        "path": "/api/v1/locations/1.json",
-        "query": "",
-        "headers": {
-          "Accept": "application/json"
-        }
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "location": {
-            "id": 1,
-            "name": "Bedside Table Bowl",
-            "lane_count": 24,
-            "has_restaurant": true,
-            "has_bar": true,
-            "address": {
-              "id": 1,
-              "street_address": "5700 Grover Ave",
-              "secondary_address": "",
-              "city": "Austin",
-              "state": "TX",
-              "zip_code": "78756",
-              "notes": "Near the school",
-              "created_at": "2020-04-13T03:21:34.548Z",
-              "updated_at": "2020-04-13T03:21:34.548Z"
-            },
-            "created_at": "2020-04-13T03:21:34.548Z",
-            "updated_at": "2020-04-13T03:21:34.548Z"
-          }
-        },
-        "matchingRules": {
-          "$.body.location.id": {
-            "match": "type"
-          },
-          "$.body.location.name": {
-            "match": "type"
-          },
-          "$.body.location.lane_count": {
-            "match": "type"
-          },
-          "$.body.location.has_restaurant": {
-            "match": "type"
-          },
-          "$.body.location.has_bar": {
-            "match": "type"
-          },
-          "$.body.location.address": {
-            "match": "type"
-          },
-          "$.body.location.address.id": {
-            "match": "type"
-          },
-          "$.body.location.address.street_address": {
-            "match": "type"
-          },
-          "$.body.location.address.secondary_address": {
-            "match": "type"
-          },
-          "$.body.location.address.city": {
-            "match": "type"
-          },
-          "$.body.location.address.state": {
-            "match": "type"
-          },
-          "$.body.location.address.zip_code": {
-            "match": "type"
-          },
-          "$.body.location.address.notes": {
-            "match": "type"
-          },
-          "$.body.location.address.created_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.location.address.updated_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.location.created_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.location.updated_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          }
-        }
-      }
-    },
-    {
       "description": "a request for retrieving tournaments",
       "providerState": "there are multiple tournaments",
       "request": {
@@ -479,7 +242,7 @@
               "side_pots_available": [
                 "brackets"
               ],
-              "link_to_source": "http://www.bowl.com",
+              "source_url": "http://www.bowl.com",
               "source_description": "USBC Open Championships",
               "flier": "http://www.fillmurray.com/850/1100",
               "contact_id": 1,
@@ -525,7 +288,7 @@
           "$.body.tournaments[*].side_pots_available[*]": {
             "match": "type"
           },
-          "$.body.tournaments[*].link_to_source": {
+          "$.body.tournaments[*].source_url": {
             "match": "type"
           },
           "$.body.tournaments[*].source_description": {
@@ -576,7 +339,7 @@
             "side_pots_available": [
               "brackets"
             ],
-            "link_to_source": "http://www.bowl.com",
+            "source_url": "http://www.bowl.com",
             "source_description": "USBC Open Championships",
             "flier": "http://www.fillmurray.com/850/1100",
             "contact_id": 1,
@@ -615,7 +378,7 @@
           "$.body.tournament.side_pots_available[*]": {
             "match": "type"
           },
-          "$.body.tournament.link_to_source": {
+          "$.body.tournament.source_url": {
             "match": "type"
           },
           "$.body.tournament.source_description": {
@@ -795,6 +558,68 @@
       }
     },
     {
+      "description": "a request for retrieving a single address",
+      "providerState": "there is an address with an id of 1",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/addresses/1.json",
+        "query": "",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "address": {
+            "id": 1,
+            "street_address": "5700 Grover Ave",
+            "secondary_address": "",
+            "city": "Austin",
+            "state": "TX",
+            "zip_code": "78756",
+            "notes": "Near the school",
+            "created_at": "2020-04-13T03:21:34.548Z",
+            "updated_at": "2020-04-13T03:21:34.548Z"
+          }
+        },
+        "matchingRules": {
+          "$.body.address.id": {
+            "match": "type"
+          },
+          "$.body.address.street_address": {
+            "match": "type"
+          },
+          "$.body.address.secondary_address": {
+            "match": "type"
+          },
+          "$.body.address.city": {
+            "match": "type"
+          },
+          "$.body.address.state": {
+            "match": "type"
+          },
+          "$.body.address.zip_code": {
+            "match": "type"
+          },
+          "$.body.address.notes": {
+            "match": "type"
+          },
+          "$.body.address.created_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          },
+          "$.body.address.updated_at": {
+            "match": "regex",
+            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
+          }
+        }
+      }
+    },
+    {
       "description": "a request for retrieving events",
       "providerState": "there are multiple events",
       "request": {
@@ -814,9 +639,7 @@
           "events": [
             {
               "id": 1,
-              "name": "Singles",
-              "created_at": "2020-04-13T03:21:34.548Z",
-              "updated_at": "2020-04-13T03:21:34.548Z"
+              "name": "Singles"
             }
           ]
         },
@@ -832,14 +655,6 @@
           },
           "$.body.events[*].name": {
             "match": "type"
-          },
-          "$.body.events[*].created_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
-          },
-          "$.body.events[*].updated_at": {
-            "match": "regex",
-            "regex": "^\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d{3,}([+-][0-2]\\d(:?[0-5]\\d)?|Z)$"
           }
         }
       }

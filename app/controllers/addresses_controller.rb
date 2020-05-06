@@ -11,15 +11,16 @@ class AddressesController < ApplicationController
 
   # GET /api/v1/addresses/:id.json
   def show
-    render json: @address
+    render json: { address: @address }
   end
 
   # POST /api/v1/addresses.json
   def create
+    binding.pry
     @address = Address.new(address_params)
 
     if @address.save
-      render :show, status: :created, address: @address
+      render json: { address: @address }, status: :created
     else
       render json: @address.errors, status: :unprocessable_entity
     end
@@ -33,6 +34,6 @@ class AddressesController < ApplicationController
   end
 
   def address_params
-    params.require(:address).permit(:street_1, :street_2, :city, :state, :zip, :notes)
+    params.require(:address).permit(:street_address, :secondary_address, :city, :state, :zip_code, :notes)
   end
 end

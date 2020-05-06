@@ -70,4 +70,10 @@ Pact.provider_states_for "TX Bowling - Front End" do
       FactoryBot.create_list(:event, 2)
     end
   end
+
+  provider_state "default state" do
+    set_up do
+      # Do nothing
+    end
+  end
 end

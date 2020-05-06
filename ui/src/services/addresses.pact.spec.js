@@ -29,6 +29,15 @@ describe("AddressesService", () => {
     updated_at: Matchers.iso8601DateTimeWithMillis("2020-04-13T03:21:34.548Z")
   };
 
+  const CREATE_BODY = {
+    street_address: EXPECTED_BODY['street_address'],
+    secondary_address: EXPECTED_BODY['secondary_address'],
+    city: EXPECTED_BODY['city'],
+    state: EXPECTED_BODY['state'],
+    zip_code: EXPECTED_BODY['zip_code'],
+    notes: EXPECTED_BODY['notes']
+  };
+
   // describe("getAddresses", () => {
   //   beforeEach( () => {
   //     const interaction = {
@@ -101,4 +110,41 @@ describe("AddressesService", () => {
       expect(response.status).toEqual(200);
     })
   });
+
+  describe('createAddress', ()=> {
+    beforeEach( () => {
+      const interaction = {
+        state: "default state",
+        uponReceiving: "a request for creating an address",
+        withRequest: {
+          method: "POST",
+          path: "/api/v1/addresses.json",
+          body: CREATE_BODY,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+        },
+        willRespondWith: {
+          status: 201,
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+          },
+          body: {
+            address: RESPONSE_BODY,
+          },
+        },
+      };
+
+      return provider.addInteraction(interaction);
+    });
+
+    it("returns a successful body", async () => {
+      const response = await new AddressesService().createAddress(CREATE_BODY);
+
+      expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
+      expect(response.data).toEqual({ address: EXPECTED_BODY });
+      expect(response.status).toEqual(201);
+    })
+  })
 });

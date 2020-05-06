@@ -21,42 +21,42 @@ export const RESPONSE_BODY = {
 };
 
 describe("SchedulesService", () => {
-  describe("getSchedules", () => {
-    beforeEach( () => {
-      const interaction = {
-        state: "there are multiple schedules",
-        uponReceiving: "a request for retrieving schedules",
-        withRequest: {
-          method: "GET",
-          path: "/api/v1/schedules.json",
-          query: {},
-          headers: {
-            Accept: "application/json",
-          },
-        },
-        willRespondWith: {
-          status: 200,
-          headers: {
-            "Content-Type": "application/json; charset=utf-8",
-          },
-          body: {
-            schedules:
-              Matchers.eachLike(RESPONSE_BODY),
-          },
-        },
-      };
-
-      return provider.addInteraction(interaction);
-    });
-
-    it("returns a successful body", async () => {
-      const response = await new SchedulesService().getSchedules();
-
-      expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
-      expect(response.data).toEqual({ schedules: [EXPECTED_BODY] });
-      expect(response.status).toEqual(200);
-    })
-  })
+  // describe("getSchedules", () => {
+  //   beforeEach( () => {
+  //     const interaction = {
+  //       state: "there are multiple schedules",
+  //       uponReceiving: "a request for retrieving schedules",
+  //       withRequest: {
+  //         method: "GET",
+  //         path: "/api/v1/schedules.json",
+  //         query: {},
+  //         headers: {
+  //           Accept: "application/json",
+  //         },
+  //       },
+  //       willRespondWith: {
+  //         status: 200,
+  //         headers: {
+  //           "Content-Type": "application/json; charset=utf-8",
+  //         },
+  //         body: {
+  //           schedules:
+  //             Matchers.eachLike(RESPONSE_BODY),
+  //         },
+  //       },
+  //     };
+  //
+  //     return provider.addInteraction(interaction);
+  //   });
+  //
+  //   it("returns a successful body", async () => {
+  //     const response = await new SchedulesService().getSchedules();
+  //
+  //     expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
+  //     expect(response.data).toEqual({ schedules: [EXPECTED_BODY] });
+  //     expect(response.status).toEqual(200);
+  //   })
+  // })
 
   describe("getSchedule", () => {
     beforeEach( () => {

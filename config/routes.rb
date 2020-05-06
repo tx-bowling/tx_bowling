@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
       resources :events
       resources :locations, only: %i[create show]
-      resources :schedules, only: %i[create]
+      resources :schedules, only: %i[create show]
       resources :addresses, only: %i[create show]
       resources :tournaments do
         get 'location', to: 'locations#show'

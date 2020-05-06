@@ -44,7 +44,6 @@ Pact.provider_states_for "TX Bowling - Front End" do
     set_up do
       begin
         tournament = Tournament.find(1)
-        tournament if tournament
       rescue
         tournament = FactoryBot.create(:tournament)
         tournament.id = 1
@@ -54,15 +53,15 @@ Pact.provider_states_for "TX Bowling - Front End" do
     end
   end
 
-  provider_state "there are multiple schedules" do
-    set_up do
-      # Your set up code goes here
-    end
-  end
-
   provider_state "there is a schedule with an id of 1" do
     set_up do
-      # Your set up code goes here
+      begin
+        Schedule.find(1)
+      rescue
+        schedule = FactoryBot.create(:schedule)
+        schedule.id = 1
+        schedule.save!
+      end
     end
   end
 

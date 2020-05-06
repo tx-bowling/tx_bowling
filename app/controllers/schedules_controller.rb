@@ -4,15 +4,19 @@
 class SchedulesController < ApplicationController
   before_action :set_schedule, only: %i[show update destroy]
 
-  # GET /schedules
-  # GET /schedules.json
+  # # GET /schedules
+  # # GET /schedules.json
   def index
     @schedules = Schedule.all
+    render json: { schedules: @schedules }
+
   end
 
   # GET /schedules/1
   # GET /schedules/1.json
-  def show; end
+  def show
+    render json: { schedule: @schedule }
+  end
 
   # POST /schedules
   # POST /schedules.json

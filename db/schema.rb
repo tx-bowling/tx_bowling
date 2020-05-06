@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_04_043244) do
+ActiveRecord::Schema.define(version: 2020_05_06_040431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,12 +46,13 @@ ActiveRecord::Schema.define(version: 2020_05_04_043244) do
   end
 
   create_table "schedules", force: :cascade do |t|
-    t.date "date"
-    t.time "time"
     t.string "event"
     t.bigint "tournament_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "scheduled_at"
+    t.bigint "event_id"
+    t.index ["event_id"], name: "index_schedules_on_event_id"
     t.index ["tournament_id"], name: "index_schedules_on_tournament_id"
   end
 
@@ -95,6 +96,7 @@ ActiveRecord::Schema.define(version: 2020_05_04_043244) do
   end
 
   add_foreign_key "locations", "addresses"
+  add_foreign_key "schedules", "events"
   add_foreign_key "schedules", "tournaments"
   add_foreign_key "tournaments", "locations"
   add_foreign_key "tournaments", "users", column: "contact_id"

@@ -27,6 +27,7 @@ module TxBowling
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
+    config.autoloader = :classic
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -41,6 +42,7 @@ module TxBowling
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
+        # origins Rails.env['UI_HOST']
         origins '*'
         resource '*', headers: :any, methods: %i[get patch put delete post options]
       end

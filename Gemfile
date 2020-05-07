@@ -7,7 +7,6 @@ ruby '2.6.5'
 
 gem 'active_model_serializers'
 gem 'bootsnap', '>= 1.4.2', require: false
-gem 'devise'
 gem 'dry-system-rails'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
@@ -17,8 +16,8 @@ gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
+gem 'bcrypt', '~> 3.1.7'
+gem 'knock'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

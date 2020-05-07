@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   root to: 'home#index'
   scope :api, as: nil, defaults: { format: :json } do
     scope :v1 do
-      devise_for :users
-
+      post 'user_token' => 'user_token#create'
+      resources :users
       resources :events
       resources :locations, only: %i[create show]
       resources :schedules, only: %i[create show]

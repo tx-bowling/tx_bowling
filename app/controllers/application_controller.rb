@@ -3,4 +3,5 @@
 # Base controller to inherit from
 class ApplicationController < ActionController::API
   include ActionController::Serialization
+  include Knock::Authenticable
 end

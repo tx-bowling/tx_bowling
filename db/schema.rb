@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_040431) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street_address", default: "", null: false
-    t.string "secondary_address"
+    t.string "secondary_address", default: "", null: false
     t.string "city", default: "", null: false
     t.string "state", default: "", null: false
     t.string "zip_code", default: "", null: false
@@ -29,9 +29,10 @@ ActiveRecord::Schema.define(version: 2020_05_06_040431) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_events_on_name", unique: true
   end
 
   create_table "locations", force: :cascade do |t|
@@ -72,27 +73,13 @@ ActiveRecord::Schema.define(version: 2020_05_06_040431) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "first_name", default: "", null: false
-    t.string "last_name", default: "", null: false
-    t.string "photo", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string "unconfirmed_email"
-    t.integer "failed_attempts", default: 0, null: false
-    t.string "unlock_token"
-    t.datetime "locked_at"
+    t.string "email"
+    t.string "password_digest"
+    t.string "first_name"
+    t.string "last_name"
+    t.boolean "admin", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
   add_foreign_key "locations", "addresses"

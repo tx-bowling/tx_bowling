@@ -3,6 +3,7 @@
 # Communication layer for Addresses
 class AddressesController < ApplicationController
   before_action :set_address, only: %i[show]
+  before_action :authenticate_user, only: %i[create]
 
   # GET /api/v1/addresses.json
   def index

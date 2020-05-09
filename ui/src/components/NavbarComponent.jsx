@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 class NavbarComponent extends React.Component {
   render() {
     return (
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="dark" variant="dark" sticky={'top'}>
         <Navbar.Brand href="#home">
           <img
             alt=""

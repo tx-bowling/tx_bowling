@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 class BreadcrumbsComponent extends React.Component {
   render() {
     const { breadcrumbs } = this.props;
-    const breadcrumbsItems = breadcrumbs.map((breadcrumb, index) => {
+    const breadcrumbItems = breadcrumbs.map((breadcrumb, index) => {
       return (
         <Breadcrumb.Item key={index} href={breadcrumb.url} active={breadcrumb.active}>
           {breadcrumb.value}
@@ -14,9 +14,14 @@ class BreadcrumbsComponent extends React.Component {
     });
 
     return (
-      <Breadcrumb style={{paddingBottom: '13px'}}>
-        {breadcrumbsItems}
-      </Breadcrumb>
+      <div>
+        {breadcrumbItems.length === 0 && <span style={{padding: '1px 9px 1px 9px'}} />}
+        {breadcrumbItems.length > 0 &&
+          <Breadcrumb>
+            {breadcrumbItems}
+          </Breadcrumb>
+        }
+      </div>
     )
   }
 }

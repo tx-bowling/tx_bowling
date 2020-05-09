@@ -35,7 +35,6 @@ class TournamentFormComponent extends React.Component {
 
 
   handleInputChange = (name, event) => {
-    debugger
     this.setState({...this.state, [name]: event.target.value});
   };
 
@@ -47,7 +46,6 @@ class TournamentFormComponent extends React.Component {
       methods = methods.filter(item => item !== name )
     }
 
-    console.log(methods)
     this.setState({...this.state, contactMethods: methods})
   };
 

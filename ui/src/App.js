@@ -21,7 +21,7 @@ function App() {
     <Provider store={store}>
       <NavbarComponent />
       <div style={{
-        padding: '13px 35px 20px 35px',
+        padding: '26px 35px 21px 35px',
         backgroundColor: '#f3f3f3'
       }}>
        <Container fluid>

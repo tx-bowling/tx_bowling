@@ -16,6 +16,7 @@
     "bootstrap": "^4.4.1",
     "connected-react-router": "^6.8.0",
     "history": "^4.10.1",
+    "js-cookie": "^2.2.1",
     "moment-timezone": "^0.5.28",
     "pigeon-maps": "^0.15.0",
     "pigeon-marker": "^0.3.4",

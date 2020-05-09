@@ -8,6 +8,7 @@ import addresses from './addresses';
 import breadcrumbs from "./breadcrumbs";
 import schedules from './schedules';
 import events from './events';
+import auth from "./auth";
 
 const createRootReducer = history =>
   combineReducers({
@@ -18,7 +19,8 @@ const createRootReducer = history =>
     tournaments: tournaments,
     breadcrumbs: breadcrumbs,
     schedules: schedules,
-    events: events
+    events: events,
+    auth: auth
   });
 
 export default createRootReducer;

@@ -11,6 +11,7 @@ import CreateTournamentPage from "../pages/CreateTournamentPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import NewLocationsPage from "../pages/NewLocationsPage";
 import {getEvents} from "../actions/events";
+import LoginPage from "../pages/LoginPage";
 
 class RouterComponent extends React.Component {
   componentDidMount() {
@@ -23,6 +24,7 @@ class RouterComponent extends React.Component {
       <ConnectedRouter history={history}>
         <Switch>
           <Route exact path={"/"} component={HomePage} />
+          <Route exact path={"/login"} component={LoginPage} />
           <Route exact path={"/locations/new"} component={NewLocationsPage} />
           <Route exact path={"/locations"} component={LocationsPage} />
           <Route exact path={"/tournaments/new"} component={CreateTournamentPage} />
